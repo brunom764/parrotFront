@@ -1,16 +1,7 @@
-<template lang="pug">
-v-btn(
-  :depressed="depressed"
-  :disabled="disabled"
-  :raised="raised"
-  :fab="fab" 
-  :icon="icon" 
-  :text="text"
-  :outlined="outlined"
-  :loading="loading"
-  :rounded="rounded"
-)
-  span {{ label }}
+<template>
+  <v-btn :depressed="depressed" :disabled="disabled" :raised="raised" :fab="fab" :icon="icon" :text="text" :outlined="outlined" :loading="loading" :rounded="rounded">
+    <span>{{ label }}</span>
+  </v-btn>
 </template>
 
 <script>
@@ -61,7 +52,7 @@ export default {
       type: String,
       default: ""
     },
-}
+  }
 }
 </script>
 

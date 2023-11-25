@@ -1,18 +1,24 @@
-<template lang="pug">
-h1 Tela de Login
-v-container.login-container
-  v-col
-    v-row
-      TextField(type="email" label="E-mail")
-    v-row
-      TextField(type="password" label="Senha")
-    v-row(justify="center")
-      a(href="") Esqueci a senha
-    v-row.pt-3(justify="center")
-      ButtonComponent(label="Entrar" width="400px")
-    v-row.pt-3(justify="center")
-      a(href="") Não tem uma conta? Cadastre-se
-
+<template>
+  <h1>Tela de Login</h1>
+  <v-container class="login-container">
+    <v-col>
+      <v-row>
+        <text-field type="email" label="E-mail"></text-field>
+      </v-row>
+      <v-row>
+        <text-field type="password" label="Senha"></text-field>
+      </v-row>
+      <v-row justify="center">
+        <a href="">Esqueci a senha</a>
+      </v-row>
+      <v-row class="pt-3" justify="center">
+        <button-component label="Entrar" width="400px"></button-component>
+      </v-row>
+      <v-row class="pt-3" justify="center">
+        <a href="">Não tem uma conta? Cadastre-se</a>
+      </v-row>
+    </v-col>
+  </v-container>
 </template>
 
 <script>

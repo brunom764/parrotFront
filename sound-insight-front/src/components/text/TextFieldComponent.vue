@@ -1,8 +1,5 @@
-<template >
-<v-text-field 
-  :label="label" 
-  :type="type">
-</v-text-field>
+<template>
+  <v-text-field :label="label" :type="type"></v-text-field>
 </template>
 
 <script>
@@ -14,7 +11,6 @@ export default {
   }
 }
 </script>
-
 
 <style scoped>
 </style>

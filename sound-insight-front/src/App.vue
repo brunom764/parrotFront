@@ -1,17 +1,21 @@
-<template lang="pug">                                                                      
-
-Login
+<template>
+  <NavBar></NavBar>
+  <Login></Login>
+  <v-divider></v-divider>
+  <Footer class="pt-3"></Footer>
 </template>
 
 <script>
-import Home from './components/views/Home.vue'
 import Login from './components/views/Login.vue';
+import NavBar from './components/navbar/navBarComponent.vue';
+import Footer from './components/footer/footerComponenet.vue';
 
 export default {
   name: 'App',
   components: {
-    Home,
-    Login
+    Login,
+    NavBar,
+    Footer
   }
 }
 </script>
@@ -22,7 +26,6 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  color: #000000;
 }
 </style>
