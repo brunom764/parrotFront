@@ -22,11 +22,11 @@
 </template>
 
 <script>
-import TextField from '../text/TextFieldComponent.vue';
-import ButtonComponent from '../button/ButtonComponent.vue';
+import TextField from '../components/text/TextFieldComponent.vue';
+import ButtonComponent from '../components/button/ButtonComponent.vue';
 
 export default {
-  name: "HomeView",
+  name: "LoginView",
   components: {
     TextField,
     ButtonComponent
@@ -37,7 +37,6 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .login-container {
   max-width: 400px;
