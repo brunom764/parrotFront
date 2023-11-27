@@ -1,6 +1,6 @@
 <template>
 <div id="footer">
-  <v-divider></v-divider>
+  <v-divider :thickness="2"></v-divider>
   <footer>
     @2023 Parrot
   </footer>

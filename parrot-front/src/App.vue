@@ -1,9 +1,11 @@
 <template>
-  <NavBar></NavBar>
+<div id="app">
+  <NavBar class="mb-10"></NavBar>
   <div>
     <router-view></router-view>
   </div>
   <Footer class="pt-3"></Footer>
+</div>
 </template>
 
 <script>
@@ -21,7 +23,7 @@ export default {
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

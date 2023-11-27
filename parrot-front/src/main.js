@@ -3,8 +3,9 @@ import App from './App.vue'
 import { createRouter, createWebHistory} from 'vue-router'
 import { routes } from './routes/routes.js'
 import vue3GoogleLogin from 'vue3-google-login'
+import './assets/style.css'
 
-// Vuetify config
+// Vuetify config 
 import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'

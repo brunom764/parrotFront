@@ -2,13 +2,6 @@
   <v-container class="login-container">
     <img class="logo" src="@/assets/logo.png" alt="logo">
     <v-col>
-      <v-row class="pb-3">
-        <v-btn width="400px" @click="login()">
-          <v-icon class="pr-2 black">
-              <img class="google-logo" src="@/assets/icons/google.svg" alt="Google logo">
-          </v-icon> Entrar com Google 
-        </v-btn>
-      </v-row>
       <v-row>
         <v-divider height="4" class="pb-3"></v-divider>
       </v-row>
@@ -18,14 +11,14 @@
       <v-row>
         <text-field type="password" label="Senha"></text-field>
       </v-row>
-      <v-row justify="center">
-        <a href="">Esqueci a senha</a>
+      <v-row>
+        <text-field type="password" label="Confirme a senha"></text-field>
       </v-row>
       <v-row class="pt-3" justify="center">
-        <v-btn width="400px">Entrar</v-btn>
-      </v-row> 
+        <v-btn class="registrar-button" width="400px">Cadastrar</v-btn>
+      </v-row>
       <v-row class="pt-3" justify="center">
-        <a href="/register">Não tem uma conta? Cadastre-se</a>
+        <a href="/login">Já tem uma conta? Faça login</a>
       </v-row>
     </v-col>
   </v-container>
@@ -33,11 +26,10 @@
 
 <script>
 import TextField from '../components/text/TextFieldComponent.vue';
-import { googleTokenLogin } from "vue3-google-login"
 
 
 export default {
-  name: "LoginView",
+  name: "RegisterView",
   data() {
     return {
     }
@@ -47,19 +39,6 @@ export default {
   },
   props: {
   },
-  methods: {
-    async login() {
-      await googleTokenLogin ()
-      .then((response) => {
-        console.log("Handle the response", response)
-      })
-      .catch((error) => {
-        console.log("Handle the error", error)
-      })
-      this.$router.push('/')
-    },
-    
-  }
 }
 </script>
 
@@ -73,8 +52,8 @@ export default {
 .logo {
   max-width: 300px;
 }
-
-.google-logo {
-  max-width:20px;
-}
+.registrar-botton {
+  background-color: #000000;
+  color: #ffffff;
+} 
 </style>
