@@ -1,4 +1,4 @@
-# sound-insight
+# parrot
 
 ## Project setup
 ```

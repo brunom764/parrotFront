@@ -2,7 +2,7 @@
 <div id="footer">
   <v-divider></v-divider>
   <footer>
-    @2023 { nome ???}
+    @2023 Parrot
   </footer>
 </div>
 </template>

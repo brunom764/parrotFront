@@ -7,7 +7,7 @@ export default {
   name: 'HomeView',
   props: {
     msg: String
-  }
+  },
 }
 </script>
 

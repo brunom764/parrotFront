@@ -33,8 +33,8 @@ export default {
       default: false
     },
     text: { 
-      type: Boolean,
-      default: false
+      type: String,
+      default: ""
     },
     outlined: { 
       type: Boolean,

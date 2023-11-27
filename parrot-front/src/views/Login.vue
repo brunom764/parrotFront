@@ -2,6 +2,13 @@
   <h1>Tela de Login</h1>
   <v-container class="login-container">
     <v-col>
+      <v-row class="pb-3">
+        <button-component label="Entrar com google" width="400px" @click="login()"></button-component>
+      </v-row>
+      <v-row class="text-align-center">
+        <p>ou</p>
+        <v-divider height="4" class="pb-3"></v-divider>
+      </v-row>
       <v-row>
         <text-field type="email" label="E-mail"></text-field>
       </v-row>
@@ -24,15 +31,32 @@
 <script>
 import TextField from '../components/text/TextFieldComponent.vue';
 import ButtonComponent from '../components/button/ButtonComponent.vue';
+import { googleTokenLogin } from "vue3-google-login"
 
 export default {
   name: "LoginView",
+  data() {
+    return {
+    }
+  },
   components: {
     TextField,
     ButtonComponent
   },
   props: {
-    msg: String
+  },
+  methods: {
+    async login() {
+      await googleTokenLogin ()
+      .then((response) => {
+        console.log("Handle the response", response)
+      })
+      .catch((error) => {
+        console.log("Handle the error", error)
+      })
+      this.$router.push('/')
+    },
+    
   }
 }
 </script>
@@ -40,5 +64,9 @@ export default {
 <style scoped>
 .login-container {
   max-width: 400px;
+}
+
+.text-align-center {
+  text-align: center;
 }
 </style>
