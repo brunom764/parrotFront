@@ -1,10 +1,7 @@
 <template>
-<div id="footer">
-  <v-divider :thickness="2"></v-divider>
   <footer>
     @2023 Parrot
   </footer>
-</div>
 </template>
 
 <script>
@@ -14,13 +11,9 @@ export default {
 </script>
 
 <style>
-footer {
-  padding: 1rem;
-}
 #footer {
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 5rem;            /* Footer height */
 }
 </style>

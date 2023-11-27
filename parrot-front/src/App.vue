@@ -1,10 +1,10 @@
 <template>
 <div id="app">
-  <NavBar class="mb-10"></NavBar>
-  <div>
+  <NavBar></NavBar>
+  <div id="body" class="pt-10">
     <router-view></router-view>
+    <Footer class="pt-3"></Footer>
   </div>
-  <Footer class="pt-3"></Footer>
 </div>
 </template>
 
@@ -27,6 +27,9 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #000000;
+  color: #1f0310;
+  height: 100vh;
+  width: 100%;
+  background-color: #a3d95b;
 }
 </style>

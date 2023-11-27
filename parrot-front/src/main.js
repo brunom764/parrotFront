@@ -3,7 +3,6 @@ import App from './App.vue'
 import { createRouter, createWebHistory} from 'vue-router'
 import { routes } from './routes/routes.js'
 import vue3GoogleLogin from 'vue3-google-login'
-import './assets/style.css'
 
 // Vuetify config 
 import 'vuetify/styles'
@@ -31,6 +30,11 @@ const gauthOption = {
 
 
 const app = createApp(App)
+// global colors
+app.config.globalProperties.$primary = "#a3d95b"
+app.config.globalProperties.$secundary = "#1f0310"
+app.config.globalProperties.$auxiliary = "#f6f0bc"
+
 app.config.productionTip = false
 app.use(vuetify)
 app.use(router)

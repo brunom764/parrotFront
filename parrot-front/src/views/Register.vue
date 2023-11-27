@@ -15,7 +15,7 @@
         <text-field type="password" label="Confirme a senha"></text-field>
       </v-row>
       <v-row class="pt-3" justify="center">
-        <v-btn class="registrar-button" width="400px">Cadastrar</v-btn>
+        <v-btn class="registrar-button" width="400px" :color="$root.$secundary">Cadastrar</v-btn>
       </v-row>
       <v-row class="pt-3" justify="center">
         <a href="/login">Já tem uma conta? Faça login</a>
@@ -45,15 +45,15 @@ export default {
 <style scoped>
 .login-container {
   max-width: 400px;
-  border: 2px solid;
   border-radius: 10px;
+  background-color: white;
 }
 
 .logo {
   max-width: 300px;
 }
 .registrar-botton {
-  background-color: #000000;
+  background-color: #1f0310;
   color: #ffffff;
 } 
 </style>

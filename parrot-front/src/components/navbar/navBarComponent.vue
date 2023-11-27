@@ -1,25 +1,22 @@
 <template>
   <nav class="navbar">
-    <v-col>
-      <img class="logo" src="@/assets/logo.png" alt="logo">
-      <v-tabs v-model="tab" class="tabs">
-        <router-link to="/">
-          <v-tab class="tab-color">
-            <span>Home</span>
-          </v-tab>
-        </router-link>
-        <router-link to="/login">
-          <v-tab class="tab-color">
-            <span>login</span>
-          </v-tab>
-        </router-link>
-        <router-link to="/register">
-          <v-tab class="tab-color">
-            <span>Cadastrar</span>
-          </v-tab>
-        </router-link>
-      </v-tabs>
-    </v-col>
+    <v-tabs v-model="tab" class="tabs">
+      <router-link to="/">
+        <v-tab class="tab-color">
+          <span>Home</span>
+        </v-tab>
+      </router-link>
+      <router-link to="/login">
+        <v-tab class="tab-color">
+          <span>login</span>
+        </v-tab>
+      </router-link>
+      <router-link to="/register">
+        <v-tab class="tab-color">
+          <span>Cadastrar</span>
+        </v-tab>
+      </router-link>
+    </v-tabs>
   </nav>
 </template>
 
@@ -52,14 +49,9 @@ export default {
 }
 .navbar {
   font-family: inherit;
+  height: 50px;
 }
 .tab-color {
-  color: black !important;
-}
-.logo {
-  max-height: 50px;
-  height: auto;
-  width: auto;
-  float: left;
+  color: #1f0310 !important;
 }
 </style>

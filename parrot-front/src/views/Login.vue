@@ -1,10 +1,10 @@
 <template>
-  <v-container class="login-container">
+  <v-container class="login-container" >
     <img class="logo" src="@/assets/logo.png" alt="logo">
     <v-col>
       <v-row class="pb-3">
         <v-btn width="400px" @click="login()">
-          <v-icon class="pr-2 black">
+          <v-icon class="pr-2">
               <img class="google-logo" src="@/assets/icons/google.svg" alt="Google logo">
           </v-icon> Entrar com Google 
         </v-btn>
@@ -22,7 +22,7 @@
         <a href="">Esqueci a senha</a>
       </v-row>
       <v-row class="pt-3" justify="center">
-        <v-btn width="400px">Entrar</v-btn>
+        <v-btn width="400px" :color="$root.$secundary">Entrar</v-btn>
       </v-row> 
       <v-row class="pt-3" justify="center">
         <a href="/register">Não tem uma conta? Cadastre-se</a>
@@ -66,8 +66,8 @@ export default {
 <style scoped>
 .login-container {
   max-width: 400px;
-  border: 2px solid;
   border-radius: 10px;
+  background-color: white;
 }
 
 .logo {
