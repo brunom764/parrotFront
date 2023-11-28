@@ -40,7 +40,7 @@ main {
 }
 
 footer {
-  padding-bottom: 1rem;
+  padding: 1rem;
   font-weight: bolder;
 }
 
