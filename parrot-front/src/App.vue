@@ -1,10 +1,12 @@
 <template>
 <div id="app">
-  <NavBar></NavBar>
-  <div id="body" class="pt-10">
+  <header>
+    <NavBar></NavBar>
+  </header>
+  <main>
     <router-view></router-view>
-    <Footer class="pt-3"></Footer>
-  </div>
+  </main>
+  <Footer></Footer>
 </div>
 </template>
 
@@ -23,13 +25,23 @@ export default {
 
 <style>
 #app {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'Poppins', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #1f0310;
-  height: 100vh;
-  width: 100%;
   background-color: #a3d95b;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
+main {
+  flex: 1;
+}
+
+footer {
+  padding-bottom: 1rem;
+  font-weight: bolder;
+}
+
 </style>

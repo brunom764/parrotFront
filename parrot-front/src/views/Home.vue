@@ -1,5 +1,7 @@
 <template>
-<h1>Home</h1>
+<v-container class="d-flex justify-center container">
+  <img src="@/assets/logo.png" alt="logo">
+</v-container>
 </template>
 
 <script>
@@ -13,4 +15,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.container {
+  border-radius: 10px;
+}
 </style>

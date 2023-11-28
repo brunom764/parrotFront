@@ -1,5 +1,5 @@
 <template>
-  <v-container class="login-container">
+  <v-container class="login-container mt-10">
     <img class="logo" src="@/assets/logo.png" alt="logo">
     <v-col>
       <v-row>
@@ -56,4 +56,8 @@ export default {
   background-color: #1f0310;
   color: #ffffff;
 } 
+
+a {
+  color: #1f0310;
+}
 </style>

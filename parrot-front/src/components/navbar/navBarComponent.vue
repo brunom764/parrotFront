@@ -50,6 +50,7 @@ export default {
 .navbar {
   font-family: inherit;
   height: 50px;
+  text-transform: unset !important;
 }
 .tab-color {
   color: #1f0310 !important;

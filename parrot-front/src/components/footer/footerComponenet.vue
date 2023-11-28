@@ -1,6 +1,6 @@
 <template>
   <footer>
-    @2023 Parrot
+    2023 - Parrot - All rights reserved
   </footer>
 </template>
 
@@ -11,9 +11,5 @@ export default {
 </script>
 
 <style>
-#footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-}
+
 </style>
