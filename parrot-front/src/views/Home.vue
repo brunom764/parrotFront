@@ -1,10 +1,10 @@
 <template>
 <v-container class="container d-flex align-center pa-0 ma-0" fluid>
   <v-row class="d-flex justify-center pa-0 ma-0">
-    <v-col class="pa-0 ma-0" cols="auto" xl="6" md="6" sm="4">
+    <v-col class="pa-0 ma-0" cols="auto" xl="6" md="12" sm="12" lg="6">
       <img src="@/assets/logo.png" alt="logo">
     </v-col>
-    <v-col class="home-text pa-0 pt-15 ma-0" cols="auto" xl="6" md="6" sm="4">
+    <v-col class="home-text pa-0 pt-15 ma-0" cols="auto" xl="6" md="12" sm="12" lg="6">
       <h1 class="text">Transforme suas palavras em ações, simplificando a análise de áudio!</h1>
       <p class="text">Seu assistente de transcrição e insights inteligentes está aqui para impulsionar seu caminho para o sucesso.</p>
       <div class="pt-2">
