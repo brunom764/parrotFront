@@ -1,5 +1,8 @@
-<template>
-  <v-text-field :label="label" :type="type"></v-text-field>
+<template lang="pug">
+v-text-field(
+  :label="label"
+  :type="type"
+)
 </template>
 
 <script>

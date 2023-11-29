@@ -1,27 +1,19 @@
-<template>
-  <v-container class="login-container pt-10 mt-10">
-    <img class="logo" src="@/assets/logo.png" alt="logo">
-    <v-col>
-      <v-row>
-        <v-divider height="4" class="pb-3"></v-divider>
-      </v-row>
-      <v-row>
-        <text-field type="email" label="E-mail"></text-field>
-      </v-row>
-      <v-row>
-        <text-field type="password" label="Senha"></text-field>
-      </v-row>
-      <v-row>
-        <text-field type="password" label="Confirme a senha"></text-field>
-      </v-row>
-      <v-row class="pt-3" justify="center">
-        <v-btn class="registrar-button" width="400px" rounded :color="$root.$secundary">Cadastrar</v-btn>
-      </v-row>
-      <v-row class="pt-3" justify="center">
-        <a href="/login">Já tem uma conta? Faça login</a>
-      </v-row>
-    </v-col>
-  </v-container>
+<template lang="pug">
+v-container.login-container.pt-10.mt-10
+  img.logo(src="@/assets/logo.png" alt="logo")
+  v-col
+    v-row
+      v-divider.pb-3(height="4")
+    v-row
+      text-field(type="email" label="E-mail")
+    v-row
+      text-field(type="password" label="Senha")
+    v-row
+      text-field(type="password" label="Confirme a senha")
+    v-row.pt-3(justify="center")
+      v-btn.registrar-button(width="400px" rounded color="secundary") Cadastrar
+    v-row.pt-3(justify="center")
+      a(href="/login") Já tem uma conta? Faça login
 </template>
 
 <script>

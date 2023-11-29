@@ -1,12 +1,8 @@
-<template>
-<div id="app">
-  <header>
-  </header>
-  <main>
-    <router-view class="body"></router-view>
-  </main>
-  <Footer></Footer>
-</div>
+<template lang="pug">
+div#app
+  main
+    router-view.body
+  Footer
 </template>
 
 <script>
@@ -31,7 +27,6 @@ export default {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  overflow-y: hidden;
 }
 main {
   flex: 1;

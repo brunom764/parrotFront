@@ -1,37 +1,25 @@
-<template>
-  <v-container class="login-container mt-10 pt-10" >
-    <img class="logo" src="@/assets/logo.png" alt="logo">
-    <v-col>
-      <v-row class="pb-3">
-        <v-btn width="400px" rounded @click="login()">
-          <v-icon class="pr-2">
-              <img class="google-logo" src="@/assets/icons/google.svg" alt="Google logo">
-          </v-icon> 
-          <span>Entrar com Google</span> 
-        </v-btn>
-      </v-row>
-      <v-row>
-        <v-divider height="4" class="pb-3"></v-divider>
-      </v-row>
-      <v-row>
-        <text-field type="email" label="E-mail"></text-field>
-      </v-row>
-      <v-row>
-        <text-field type="password" label="Senha"></text-field>
-      </v-row>
-      <v-row justify="center">
-        <a href="">Esqueci a senha</a>
-      </v-row>
-      <v-row class="pt-3" justify="center">
-        <v-btn width="400px" rounded :color="$root.$secundary">
-          <span>Entrar</span>
-        </v-btn>
-      </v-row> 
-      <v-row class="pt-3" justify="center">
-        <a href="/register">Não tem uma conta? Cadastre-se</a>
-      </v-row>
-    </v-col>
-  </v-container>
+<template lang="pug">
+v-container.login-container.mt-10.pt-10
+  img.logo(src="@/assets/logo.png" alt="logo")
+  v-col
+    v-row.pb-3
+      v-btn(width="400px" rounded @click="login()")
+        v-icon.pr-2
+          img.google-logo(src="@/assets/icons/google.svg" alt="Google logo")
+        span Entrar com Google
+    v-row
+      v-divider.pb-3(height="4")
+    v-row
+      text-field(type="email" label="E-mail")
+    v-row
+      text-field(type="password" label="Senha")
+    v-row(justify="center")
+      a(href="") Esqueci a senha
+    v-row.pt-3(justify="center")
+      v-btn(width="400px" rounded color="secundary")
+        span Entrar
+    v-row.pt-3(justify="center")
+      a(href="/register") Não tem uma conta? Cadastre-se
 </template>
 
 <script>

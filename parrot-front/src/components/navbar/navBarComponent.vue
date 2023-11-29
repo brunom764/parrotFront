@@ -1,23 +1,15 @@
-<template>
-  <nav class="navbar">
-    <v-tabs v-model="tab" class="tabs">
-      <router-link to="/">
-        <v-tab class="tab-color">
-          <span>Home</span>
-        </v-tab>
-      </router-link>
-      <router-link to="/login">
-        <v-tab class="tab-color">
-          <span>login</span>
-        </v-tab>
-      </router-link>
-      <router-link to="/register">
-        <v-tab class="tab-color">
-          <span>Cadastrar</span>
-        </v-tab>
-      </router-link>
-    </v-tabs>
-  </nav>
+<template lang="pug">
+nav.navbar
+  v-tabs(v-model="tab", class="tabs")
+    router-link(to="/")
+      v-tab.tab-color
+        span Home
+    router-link(to="/login")
+      v-tab.tab-color
+        span login
+    router-link(to="/register")
+      v-tab.tab-color
+        span Cadastrar
 </template>
 
 <script>
