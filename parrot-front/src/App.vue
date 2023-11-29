@@ -1,23 +1,20 @@
 <template>
 <div id="app">
   <header>
-    <NavBar></NavBar>
   </header>
   <main>
-    <router-view></router-view>
+    <router-view class="body"></router-view>
   </main>
   <Footer></Footer>
 </div>
 </template>
 
 <script>
-import NavBar from './components/navbar/navBarComponent.vue';
 import Footer from './components/footer/footerComponenet.vue';
 
 export default {
   name: 'App',
   components: {
-    NavBar,
     Footer
   }
 }
@@ -34,6 +31,7 @@ export default {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  overflow-y: hidden;
 }
 main {
   flex: 1;

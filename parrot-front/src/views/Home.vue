@@ -1,6 +1,21 @@
 <template>
-<v-container class="d-flex justify-center container">
-  <img src="@/assets/logo.png" alt="logo">
+<v-container class="container d-flex align-center pa-0 ma-0" fluid>
+  <v-row class="d-flex justify-center pa-0 ma-0">
+    <v-col class="pa-0 ma-0" cols="auto" xl="6" md="6" sm="4">
+      <img src="@/assets/logo.png" alt="logo">
+    </v-col>
+    <v-col class="home-text pa-0 pt-15 ma-0" cols="auto" xl="6" md="6" sm="4">
+      <h1 class="text">Transforme suas palavras em ações, simplificando a análise de áudio!</h1>
+      <p class="text">Seu assistente de transcrição e insights inteligentes está aqui para impulsionar seu caminho para o sucesso.</p>
+      <div class="pt-2">
+        <router-link to="/login">
+          <v-btn :color="$root.$secundary" rounded>
+            <span :color="$root.$auxiliary">Começar</span>
+          </v-btn>
+        </router-link>
+      </div>
+    </v-col>
+  </v-row>
 </v-container>
 </template>
 
@@ -16,6 +31,13 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .container {
+  text-justify: auto;
+  height: 85vh;
+  width: 100%;
   border-radius: 10px;
+}
+
+.home-text {
+  max-width: 500px;
 }
 </style>

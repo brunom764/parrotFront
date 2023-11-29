@@ -1,9 +1,9 @@
 <template>
-  <v-container class="login-container mt-10" >
+  <v-container class="login-container mt-10 pt-10" >
     <img class="logo" src="@/assets/logo.png" alt="logo">
     <v-col>
       <v-row class="pb-3">
-        <v-btn width="400px" @click="login()">
+        <v-btn width="400px" rounded @click="login()">
           <v-icon class="pr-2">
               <img class="google-logo" src="@/assets/icons/google.svg" alt="Google logo">
           </v-icon> 
@@ -23,7 +23,7 @@
         <a href="">Esqueci a senha</a>
       </v-row>
       <v-row class="pt-3" justify="center">
-        <v-btn width="400px" :color="$root.$secundary">
+        <v-btn width="400px" rounded :color="$root.$secundary">
           <span>Entrar</span>
         </v-btn>
       </v-row> 
@@ -84,5 +84,6 @@ export default {
 a {
   color: #1f0310;
 }
+
 
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <v-container class="login-container mt-10">
+  <v-container class="login-container pt-10 mt-10">
     <img class="logo" src="@/assets/logo.png" alt="logo">
     <v-col>
       <v-row>
@@ -15,7 +15,7 @@
         <text-field type="password" label="Confirme a senha"></text-field>
       </v-row>
       <v-row class="pt-3" justify="center">
-        <v-btn class="registrar-button" width="400px" :color="$root.$secundary">Cadastrar</v-btn>
+        <v-btn class="registrar-button" width="400px" rounded :color="$root.$secundary">Cadastrar</v-btn>
       </v-row>
       <v-row class="pt-3" justify="center">
         <a href="/login">Já tem uma conta? Faça login</a>
