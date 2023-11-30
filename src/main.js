@@ -4,6 +4,7 @@ import { createRouter, createWebHistory} from 'vue-router'
 import { routes } from './routes/routes.js'
 import vue3GoogleLogin from 'vue3-google-login'
 import vuetify from './plugins/vuetify'
+import store from './store'
 
 // router config
 const router = createRouter({
@@ -25,6 +26,7 @@ app.config.productionTip = false
 app.use(vuetify)
 app.use(router)
 app.use(vue3GoogleLogin, gauthOption)
+app.use(store)
 app.mount('#app')
 
 

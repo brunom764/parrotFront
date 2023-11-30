@@ -1,5 +1,6 @@
 <template lang="pug">
 div#app
+  Snackbar(ref="snackbar")
   main
     router-view.body
   Footer
@@ -7,11 +8,13 @@ div#app
 
 <script>
 import Footer from './components/footer/footerComponenet.vue';
+import Snackbar from './components/snackbar/snackbarComponent.vue';
 
 export default {
   name: 'App',
   components: {
-    Footer
+    Footer,
+    Snackbar,
   }
 }
 </script>

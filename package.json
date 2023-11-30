@@ -15,7 +15,9 @@
     "vue-google-oauth2": "^1.5.10",
     "vue-router": "^4.2.5",
     "vue3-google-login": "^2.0.25",
-    "vuetify": "^3.4.3"
+    "vuetify": "^3.4.3",
+    "vuex": "^4.0.2",
+    "vuex-map-fields": "^1.4.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
