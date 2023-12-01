@@ -12,16 +12,26 @@ v-container.login-container.mt-10.pt-10
       v-divider.pb-3(height="4")
     v-row(v-if="loading" justify="center")
       v-progress-circular.loading(indeterminate color="primary")
-    template(v-else)
+    template(v-else-if="!forgotPassword")
       v-row
         text-field(v-model="email" type="email" label="E-mail")
       v-row
         text-field(v-model="password" type="password" label="Senha")
       v-row(justify="center")
-        a(href="") Esqueci a senha
+        p(@click="forgotPassword = true") Esqueci a senha
       v-row.pt-3(justify="center")
         v-btn(width="400px" rounded color="secundary" @click="login()")
           span Entrar
+      v-row.pt-3(justify="center")
+        a(href="/register") Não tem uma conta? Cadastre-se
+    template(v-else)
+      v-row
+        text-field(v-model="email" type="email" label="E-mail")
+      v-row(justify="center")
+        p(@click="forgotPassword = false") Voltar para tela de login
+      v-row.pt-3(justify="center")
+        v-btn(width="400px" rounded color="secundary" @click="resetPassword()")
+          span Redefinir senha
       v-row.pt-3(justify="center")
         a(href="/register") Não tem uma conta? Cadastre-se
 </template>
@@ -38,6 +48,7 @@ export default {
     return {
       email: '',
       password: '',
+      forgotPassword: false,
     }
   },
   computed:{
@@ -72,7 +83,6 @@ export default {
             this.$router.push('/feed');
             break;
         }
-          
       })
     },
     
@@ -82,8 +92,17 @@ export default {
         this.$root.$refs.snackbar.show('Usuário logado com sucesso!');
         this.$router.push('/feed');
       })
-    }
-  }
+    },
+
+    async resetPassword() {
+      await this.$store.dispatch('user/resetPassword', this.email)
+      .then(() => {
+        this.$root.$refs.snackbar.show('Redefinição de senha enviado para o seu E-mail!');
+        this.forgotPassword = false
+      })
+    },
+  },
+
 }
 </script>
 
@@ -109,6 +128,11 @@ a {
 
 .loading {
   margin-top: 5rem;
+}
+
+p {
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 </style>

@@ -1,5 +1,5 @@
 import { getField, updateField } from "vuex-map-fields";
-import { signInWithEmailAndPassword, getAuth, signOut, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
+import { signInWithEmailAndPassword, getAuth, signOut, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail } from 'firebase/auth'
 import axios from 'axios';
 
 export const state = {
@@ -49,7 +49,8 @@ export const actions = {
 
   async loginUserWithGoogle() {
     const provider  = new GoogleAuthProvider(); 
-    return signInWithPopup(getAuth(), provider)
+    const response = signInWithPopup(getAuth(), provider)
+    await axios.post(`${process.env.VUE_APP_SERVER_URL}/identity/login-with-google`, response.user.email)
   },
   async logoutUser({ commit }) {
     const auth = getAuth();
@@ -61,6 +62,20 @@ export const actions = {
     } catch (error) {
       return error.code;
     }
+  },
+
+  async resetPassword({commit}, email){
+    commit('updateField', { path: 'loading', value: true })
+    const auth = getAuth();
+    try {
+      const response = await sendPasswordResetEmail(auth, email)
+      commit('updateField', { path: 'loading', value: false })
+      return response;
+    } catch (error) {
+      commit('updateField', { path: 'loading', value: false })
+      return error.code;
+    }
+
   }
 
 };
