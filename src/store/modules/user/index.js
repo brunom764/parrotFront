@@ -49,8 +49,8 @@ export const actions = {
 
   async loginUserWithGoogle() {
     const provider  = new GoogleAuthProvider(); 
-    const response = signInWithPopup(getAuth(), provider)
-    await axios.post(`${process.env.VUE_APP_SERVER_URL}/identity/login-with-google`, response.user.email)
+    await signInWithPopup(getAuth(), provider)
+    //await axios.post(`${process.env.VUE_APP_SERVER_URL}/identity/login-with-google`, response.user.email)
   },
   async logoutUser({ commit }) {
     const auth = getAuth();

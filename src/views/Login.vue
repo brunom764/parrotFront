@@ -99,6 +99,10 @@ export default {
     },
 
     async resetPassword() {
+      if (this.email === ''){
+        this.$root.$refs.snackbar.show('Preencha todos os campos!', true)
+        return;
+      }
       await this.$store.dispatch('user/resetPassword', this.email)
       .then(() => {
         this.$root.$refs.snackbar.show('Redefinição de senha enviado para o seu E-mail!');
