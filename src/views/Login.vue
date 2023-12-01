@@ -60,6 +60,10 @@ export default {
   },
   methods: {
     async login() {
+      if (this.email === '' || this.password === ''){
+        this.$root.$refs.snackbar.show('Preencha todos os campos!', true)
+        return;
+      }
       await this.$store.dispatch('user/loginUser', {
         email: this.email,
         password: this.password,

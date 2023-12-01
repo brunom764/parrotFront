@@ -2,7 +2,7 @@
 div#app
   Snackbar(ref="snackbar")
   main
-    router-view.body
+    router-view
   Footer
 </template>
 
