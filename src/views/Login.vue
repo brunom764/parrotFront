@@ -14,9 +14,9 @@ v-container.login-container.mt-10.pt-10
       v-progress-circular.loading(indeterminate color="primary")
     template(v-else-if="!forgotPassword")
       v-row
-        text-field(v-model="email" type="email" label="E-mail")
+        text-field(v-model="email" name="email" type="email" label="E-mail")
       v-row
-        text-field(v-model="password" type="password" label="Senha")
+        text-field(v-model="password" name="password" type="password" label="Senha")
       v-row(justify="center")
         p(@click="forgotPassword = true") Esqueci a senha
       v-row.pt-3(justify="center")
@@ -73,7 +73,7 @@ export default {
           case 'auth/user-not-found':
             this.$root.$refs.snackbar.show('Usuário não encontrado!', true);
             break;
-          case 'auth/wrong-password':
+          case 'auth/invalid-credential':
             this.$root.$refs.snackbar.show('Senha incorreta!', true);
             break;
           case 'auth/invalid-email':

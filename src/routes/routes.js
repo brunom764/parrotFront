@@ -36,7 +36,6 @@ router.beforeEach(async (to, from, next) => {
     if (await getCurrentUser()){
       next();
     } else {
-      alert('Você precisa estar logado para acessar essa página!');
       next('/login');
     }
   } else {
