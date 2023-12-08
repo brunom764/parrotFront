@@ -1,7 +1,7 @@
 from selenium import webdriver
 import time
 
-driver = webdriver.Firefox() 
+driver = webdriver.Chrome() 
 driver.get("http://localhost:8080")  # Acessa a home pag
 
 start_button = driver.find_element("xpath",'//span[text()="Começar"]') # Localiza botão de começar para ir para a página de login
@@ -35,7 +35,7 @@ expected_url = 'http://localhost:8080/feed' # Verifica se o login foi concluído
 current_url = driver.current_url
 
 if expected_url in current_url:
-    print("TESTE CONCLUIDOLogin bem-sucedido. Login com sucesso")
+    print("TESTE CONCLUIDO: Login bem-sucedido. Login com sucesso")
 else:
     print("TESTE CONCLUIDO: Login falhou, usuário ou senha incorreto")
 
