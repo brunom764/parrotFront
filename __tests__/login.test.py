@@ -30,8 +30,8 @@ login_button.click()
 time.sleep(2)
 
 
-expected_url = 'http://localhost:8080/feed' # Verifica se o login foi concluído com sucesso, ou seja, se foi redirecionado para a página de feed.
-# Caso contrário, o login falhou e não foi redirecionado para a página de feed, o email ou senha estão incorretos
+expected_url = 'http://localhost:8080/dashboard' # Verifica se o login foi concluído com sucesso, ou seja, se foi redirecionado para a página de dashboard.
+# Caso contrário, o login falhou e não foi redirecionado para a página de dashboard, o email ou senha estão incorretos
 current_url = driver.current_url
 
 if expected_url in current_url:

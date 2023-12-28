@@ -1,7 +1,12 @@
 <template lang="pug">
 Snackbar
-h1 Feed
-v-btn(v-if="loggedIn" @click='logout') logout
+div.dashboard(height="100%")
+  v-row
+    v-col.resume-list(cols=3)
+      h1 Dashboard
+      v-btn(v-if="loggedIn" @click='logout') logout
+    v-col(cols=9)
+      h1 ola
 </template>
 
 <script>
@@ -10,7 +15,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Snackbar from '@/components/snackbar/snackbarComponent.vue';
 
 export default {
-  name: 'FeedView',
+  name: 'DashboardView',
   components: {
     Snackbar,
   },
@@ -41,7 +46,11 @@ export default {
 </script>
 
 <style scoped>
-.feed {
-  /* Add your feed styles here */
+.dashboard {
+  height: 100vh;
+}
+.resume-list {
+  box-shadow: 10px 0px 5px -2px rgba(0,0,0,0.2); /* Adjust as needed */
+  height: 100vh;
 }
 </style>

@@ -3,7 +3,7 @@ div#app
   Snackbar(ref="snackbar")
   main
     router-view
-  Footer
+  Footer(v-if="showFooter")
 </template>
 
 <script>
@@ -15,6 +15,11 @@ export default {
   components: {
     Footer,
     Snackbar,
+  },
+  computed: {
+    showFooter() {
+      return this.$route.path !== '/dashboard';
+    }
   }
 }
 </script>

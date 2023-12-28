@@ -84,7 +84,7 @@ export default {
             break;
           default:
             this.$root.$refs.snackbar.show('Usuário logado com sucesso!');
-            this.$router.push('/feed');
+            this.$router.push('/dashboard');
             break;
         }
       })
@@ -94,7 +94,7 @@ export default {
       await this.$store.dispatch('user/loginUserWithGoogle')
       .then(() => {
         this.$root.$refs.snackbar.show('Usuário logado com sucesso!');
-        this.$router.push('/feed');
+        this.$router.push('/dashboard');
       })
     },
 
