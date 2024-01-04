@@ -54,7 +54,10 @@ div.dashboard
                   v-btn.tooltip.ma-3(height="50px" width="180px" :ripple="false") 
                     span Parrot Resumo
               v-divider.mt-2  // Linha divisória
-              v-row.chat-area
+              v-row(v-if="true").chat-area.align-center
+                v-col(cols="12")
+                  p Sua resposta aparecerá aqui
+              v-row(v-else).chat-area
                 v-col(cols="12")
                   p Sua resposta aparecerá aqui
               v-row.chat-input
@@ -116,7 +119,8 @@ export default {
   flex: 0 0 15%;  
 }
 .chat-area {
-  flex: 0 0 70%; 
+  flex: 0 0 70%;
+  overflow: auto; 
 }
 .chat-input {
   flex: 0 0 15%; 
