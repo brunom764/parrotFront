@@ -4,6 +4,7 @@ import router from './routes/routes.js'
 import vuetify from './plugins/vuetify'
 import store from './store'
 import './plugins/firebase'
+import '@mdi/font/css/materialdesignicons.css'
 
 // App config
 const app = createApp(App)

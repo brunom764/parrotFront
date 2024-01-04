@@ -13,10 +13,10 @@ import Snackbar from './components/snackbar/snackbarComponent.vue';
 export default {
   name: 'App',
   components: {
-    Footer,
+  Footer,
     Snackbar,
   },
-  computed: {
+computed: {
     showFooter() {
       return this.$route.path !== '/dashboard';
     }
@@ -35,6 +35,7 @@ export default {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  overflow: hidden;
 }
 main {
   flex: 1;

@@ -64,7 +64,6 @@ export default {
         password: this.password,
       })
       .then((result) => {
-        console.log(result);
         if (result.status === 201){
           this.$root.$refs.snackbar.show('Usuário criado com sucesso!');
           this.$router.push('/login');
