@@ -6,8 +6,8 @@ div.dashboard
     v-col.resume-list(cols=3)
       v-row 
         v-col
-          v-btn.mt-4(color="secundary" rounded @click="uploadModalOpen = true")
-            span(color="secundary") Crie um novo Resumo
+          v-btn.mt-4(color="auxiliary" rounded @click="uploadModalOpen = true")
+            span Crie um novo Resumo
             v-icon(right) mdi-plus
       v-container.fill-height.d-flex.flex-column
         v-spacer
@@ -53,7 +53,7 @@ div.dashboard
               v-col(cols=6)
                 v-btn.tooltip.ma-3(height="50px" width="180px" :ripple="false") 
                   span Parrot Resumo
-            //div.divider
+            v-divider
           v-col(cols=6)
            v-card.card(height="70vh")
             
@@ -100,22 +100,17 @@ export default {
 </script>
 
 <style scoped>
-.divider {
-  height: 1px; /* Adjust this value to change the thickness of the divider */
-  background-color: grey; /* Change the color of the divider */
-  width: 100%;
-}
+
 .dashboard {
   min-height: 100vh;
   min-width: 100vh;
   width: 100%;
   height: 100%;
-  background-color: #f6f0bc;
   overflow: hidden;
 }
 .resume-list {
   box-shadow: 10px 0px 5px -2px rgba(0,0,0,0.2); 
-  height: 100vh;
+  height: 100vh;;
 }
 .logo {
   position: absolute;
@@ -149,7 +144,6 @@ p {
   border-radius: 10px;
   margin: 10px;
   background-color: #f6f0bc;
-
   box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25); /* Add a custom shadow */
 }
 

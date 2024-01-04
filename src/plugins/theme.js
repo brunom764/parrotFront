@@ -4,8 +4,8 @@ const theme = {
     variables: {}, 
     colors: {
       primary: '#a3d95b',
-      secundary: '#1f0310',
-      auxiliary: '#f6f0bc',
+      secundary: '#f6f0bc',
+      auxiliary: '#1f0310',
       lighterSuccess: '#14A44D',
       lighterError: '#DC4C64',
     },

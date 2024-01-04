@@ -16,7 +16,7 @@ v-dialog.modal(v-model='dialog' width="500")
           v-col(cols='12')
             input(type="file" @change="handleFileUpload" accept="audio/*")
           v-col(cols='12' align='right')
-            v-btn(color='secundary' @click='uploadFile')
+            v-btn(color='auxiliary' @click='uploadFile')
               span.text Enviar
 </template>
 

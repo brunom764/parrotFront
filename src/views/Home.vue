@@ -8,7 +8,7 @@ v-container.container.d-flex.align-center.pa-0.ma-0(fluid)
       p.text Seu assistente de transcrição e insights inteligentes está aqui para impulsionar seu caminho para o sucesso.
       div.pt-2
         router-link(to="/login")
-          v-btn(color="secundary" rounded)
+          v-btn(color="auxiliary" rounded)
             span Começar
 </template>
 
