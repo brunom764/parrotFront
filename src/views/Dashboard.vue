@@ -34,10 +34,10 @@ div.dashboard
             span.text Começe a analisar seus áudios!
       v-container(v-if="resumeIsInAnalysis" fluid)
         v-row
-          v-col(cols=5) 
+          v-col.left-text(cols=5) 
             span.text Resumo da entrevista
             v-row.pl-3 
-              v-col
+              v-col.pl-0
                 p 20 min 30 seg
               v-col
                 p 20/11/2023
@@ -53,7 +53,7 @@ div.dashboard
               v-col(cols=6)
                 v-btn.tooltip.ma-3(height="50px" width="180px" :ripple="false") 
                   span Parrot Resumo
-            v-divider
+            v-divider.mt-3
           v-col(cols=6)
            v-card.card(height="70vh")
             
@@ -100,13 +100,16 @@ export default {
 </script>
 
 <style scoped>
-
+.left-text {
+  text-align: left;
+}
 .dashboard {
   min-height: 100vh;
   min-width: 100vh;
   width: 100%;
   height: 100%;
   overflow: hidden;
+  background-color: white;
 }
 .resume-list {
   box-shadow: 10px 0px 5px -2px rgba(0,0,0,0.2); 
