@@ -27,8 +27,6 @@ computed: {
 <style>
 #app {
   font-family: 'Poppins', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #1f0310;
   background-color: #a3d95b;

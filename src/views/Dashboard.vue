@@ -26,7 +26,7 @@ div.dashboard
                   p 0
                 v-btn(@click="logout" variant="text")
                   img.icon(src="@/assets/icons/logout.svg" alt="logout" )
-    v-col(cols=9)
+    v-col.transcription(cols=9)
       img.logo(src="../assets/logo.png" alt="logo")
       v-container.fill-height(v-if="!resumeIsInAnalysis" fluid)
         v-row.justify-center.align-center
@@ -43,17 +43,25 @@ div.dashboard
                 p 20/11/2023
               v-col
                 p 2033 palavras
-        v-row 
+        v-row
           v-col(cols=6)
-           v-card.card(height="70vh")
-            v-row
-              v-col(cols=6)
-                v-btn.tooltip.ma-3(height="50px" width="180px" :ripple="false") 
-                  span Parrot AI Chat
-              v-col(cols=6)
-                v-btn.tooltip.ma-3(height="50px" width="180px" :ripple="false") 
-                  span Parrot Resumo
-            v-divider.mt-3
+            v-card.card.d-flex.flex-column.justify-center(height="70vh")
+              v-row.header-row
+                v-col(cols="6" class="pb-0")
+                  v-btn.tooltip.ma-3(height="50px" width="180px" :ripple="false") 
+                    span Parrot AI Chat
+                v-col(cols="6" class="pb-0")
+                  v-btn.tooltip.ma-3(height="50px" width="180px" :ripple="false") 
+                    span Parrot Resumo
+              v-divider.mt-2  // Linha divisória
+              v-row.chat-area
+                v-col(cols="12")
+                  p Sua resposta aparecerá aqui
+              v-row.chat-input
+                v-col(cols="12")
+                  v-text-field.ml-3.mr-3(label="O que você gostaria de saber?" v-model="question" variant="outlined" clearable append-inner-icon="mdi-arrow-up-box" single-line @click:append-inner="sendQuestion")
+                      
+
           v-col(cols=6)
            v-card.card(height="70vh")
             
@@ -74,6 +82,7 @@ export default {
     return {
       uploadModalOpen: false,
       resumeIsInAnalysis: true,
+      question: '',
     }
   },
   beforeCreate() {
@@ -88,6 +97,9 @@ export default {
   },
 
   methods: {
+    sendQuestion(){
+      console.log(this.question)
+    },
     logout() {
       this.$store.dispatch('user/logoutUser')
       .then(() => {
@@ -100,6 +112,18 @@ export default {
 </script>
 
 <style scoped>
+.header-row {
+  flex: 0 0 15%;  
+}
+.chat-area {
+  flex: 0 0 70%; 
+}
+.chat-input {
+  flex: 0 0 15%; 
+}
+.transcription {
+  background-color: #b5da85;
+}
 .left-text {
   text-align: left;
 }
@@ -109,11 +133,11 @@ export default {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background-color: white;
+
 }
 .resume-list {
   box-shadow: 10px 0px 5px -2px rgba(0,0,0,0.2); 
-  height: 100vh;;
+  height: 102vh;
 }
 .logo {
   position: absolute;
@@ -147,7 +171,7 @@ p {
   border-radius: 10px;
   margin: 10px;
   background-color: #f6f0bc;
-  box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25); /* Add a custom shadow */
+  box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 </style>
