@@ -12,8 +12,10 @@ v-dialog.modal(v-model='dialog' width="500")
       v-container
         v-row
           v-col(cols='12')
-            TextField(label='Nome do resumo' name="nomeResumo" v-model="name" )
+            label.text Nome do Resumo:
+            v-text-field(v-model='name' variant="outlined" clearable single-line label="Insira um nome para o resumo")
           v-col(cols='12')
+            label.text Arquivo de áudio:
             input(type="file" @change="handleFileUpload" accept="audio/*")
           v-col(cols='12' align='right')
             v-btn(color='auxiliary' @click='uploadFile')
@@ -73,7 +75,6 @@ export default {
 .modal {
   border-radius: 5px;
 }
-
 .text{
   font-weight: bold;
 }

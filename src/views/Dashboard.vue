@@ -1,31 +1,28 @@
 <template lang="pug">
-Snackbar
 UploadModal(v-model="uploadModalOpen" @close="uploadModalOpen = false")
 div.dashboard
   v-row
-    v-col.resume-list(cols=3)
-      v-row 
+    v-col.menu.d-flex.flex-column.justify-center(cols=3)
+      v-row.new-resume
         v-col
           v-btn.mt-4(color="auxiliary" rounded @click="uploadModalOpen = true")
             span Crie um novo Resumo
             v-icon(right) mdi-plus
-      v-container.fill-height.d-flex.flex-column
-        v-spacer
-        v-spacer
-        v-spacer
-        v-spacer
-        v-spacer
-        v-spacer
-        v-spacer
-        v-row
-          v-col
-            v-row
-              v-col.tooltip.pa-0(cols=12)
-                v-btn(variant="text")
-                  img.icon(src="@/assets/icons/coin.svg" alt="credits" )
-                  p 0
-                v-btn(@click="logout" variant="text")
-                  img.icon(src="@/assets/icons/logout.svg" alt="logout" )
+      v-row.resume-list
+        template(v-for="(resume, index) in resumes" :key="index")
+          v-col.text-left(cols=12 style="cursor: pointer;")
+            span.ml-4 {{ resume.name }}
+            p.ml-4 {{ '20 min 34s' + ' - ' + '20/11/2021' }}
+            v-divider.mr-4.ml-4
+      v-row.tooltip-menu
+        v-col
+          v-row.justify-center.align-center
+            v-col.tooltip.pa-0(cols=12)
+              v-btn(variant="text")
+                img.icon(src="@/assets/icons/coin.svg" alt="credits" )
+                p 0
+              v-btn(@click="logout" variant="text")
+                img.icon(src="@/assets/icons/logout.svg" alt="logout" )
     v-col.transcription(cols=9)
       img.logo(src="../assets/logo.png" alt="logo")
       v-container.fill-height(v-if="!resumeIsInAnalysis" fluid)
@@ -45,28 +42,9 @@ div.dashboard
                 p 2033 palavras
         v-row
           v-col(cols=6)
-            v-card.card.d-flex.flex-column.justify-center(height="70vh")
-              v-row.header-row
-                v-col(cols="6" class="pb-0")
-                  v-btn.tooltip.ma-3(height="50px" width="180px" :ripple="false") 
-                    span Parrot AI Chat
-                v-col(cols="6" class="pb-0")
-                  v-btn.tooltip.ma-3(height="50px" width="180px" :ripple="false") 
-                    span Parrot Resumo
-              v-divider.mt-2  // Linha divisória
-              v-row(v-if="true").chat-area.align-center
-                v-col(cols="12")
-                  p Sua resposta aparecerá aqui
-              v-row(v-else).chat-area
-                v-col(cols="12")
-                  p Sua resposta aparecerá aqui
-              v-row.chat-input
-                v-col(cols="12")
-                  v-text-field.ml-3.mr-3(label="O que você gostaria de saber?" v-model="question" variant="outlined" clearable append-inner-icon="mdi-arrow-up-box" single-line @click:append-inner="sendQuestion")
-                      
-
+            AiChatSummary
           v-col(cols=6)
-           v-card.card(height="70vh")
+            TrascriptionText
             
 </template>
 
@@ -74,18 +52,22 @@ div.dashboard
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Snackbar from '@/components/snackbar/snackbarComponent.vue';
 import UploadModal from '@/components/modal/uploadModal.vue';
+import AiChatSummary from '@/components/transcription/AiChatSummary.vue';
+import TrascriptionText from '@/components/transcription/TrascriptionText.vue';
 
 export default {
   name: 'DashboardView',
   components: {
     Snackbar,
     UploadModal,
+    AiChatSummary,
+    TrascriptionText,
   },
   data() {
     return {
       uploadModalOpen: false,
       resumeIsInAnalysis: true,
-      question: '',
+      resumes: [{ name: 'Resumo 1' }, { name: 'Resumo 2' }, { name: 'Resumo 3'}, { name: 'Resumo 4' }, { name: 'Resumo 5' }, { name: 'Resumo 6' },],
     }
   },
   beforeCreate() {
@@ -101,7 +83,11 @@ export default {
 
   methods: {
     sendQuestion(){
-      console.log(this.question)
+      if (this.question.trim() !== "") {
+        this.messages.push({ text: this.question, isUser: true });
+        this.messages.push({ text: "Resposta do Bot", isUser: false });
+        this.question = "";
+      }
     },
     logout() {
       this.$store.dispatch('user/logoutUser')
@@ -115,14 +101,14 @@ export default {
 </script>
 
 <style scoped>
-.header-row {
+.new-resume{
   flex: 0 0 15%;  
 }
-.chat-area {
-  flex: 0 0 70%;
-  overflow: auto; 
+.resume-list {
+  flex: 1 1 70%;
+  overflow-y: auto;
 }
-.chat-input {
+.tooltip-menu {
   flex: 0 0 15%; 
 }
 .transcription {
@@ -139,7 +125,7 @@ export default {
   overflow: hidden;
 
 }
-.resume-list {
+.menu {
   box-shadow: 10px 0px 5px -2px rgba(0,0,0,0.2); 
   height: 102vh;
 }
@@ -164,18 +150,11 @@ export default {
   background-color: #1f0310;
   border-radius: 10px;
   color: white;
+  max-width: 130px;
 }
 
 p {
   font-size: small;
   font-family: inherit;
 }
-
-.card {
-  border-radius: 10px;
-  margin: 10px;
-  background-color: #f6f0bc;
-  box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
-}
-
 </style>
