@@ -5,6 +5,7 @@ import axios from 'axios';
 export const state = {
   loggedIn: false,
   loading: false,
+  idUser: null,
 };
 
 export const getters = {
