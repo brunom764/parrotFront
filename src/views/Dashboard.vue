@@ -81,6 +81,10 @@ export default {
     });
   },
 
+  created() {
+
+  },
+
   methods: {
     sendQuestion(){
       if (this.question.trim() !== "") {

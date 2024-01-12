@@ -9,7 +9,7 @@ v-card.card.d-flex.flex-column.justify-center(height="70vh")
     v-divider 
   v-row.text-area
     v-col(cols=12)
-      p {{ text }}
+      p.texto {{ text }}
 </template>
 
 <script>
@@ -22,26 +22,21 @@ export default {
   },
   methods: {
     copyText() {
-      console.log('copied');
-      /* // Selecione o elemento que contém o texto que você deseja copiar
-      const elementoTexto = document.getElementById('seu-elemento-de-texto'); // Substitua com o ID ou classe do seu elemento de texto
+      // Criação de um elemento de área de transferência temporário
+      const areaDeTransferenciaTemp = document.createElement('textarea');
+      areaDeTransferenciaTemp.value = this.text;
+      // Adiciona o elemento de área de transferência temporário ao DOM
+      document.body.appendChild(areaDeTransferenciaTemp);
 
-      // Crie um intervalo para selecionar o texto no elemento
-      const intervaloSelecao = document.createRange();
-      intervaloSelecao.selectNode(elementoTexto);
-
-      // Limpe a seleção anterior e adicione a nova seleção
-      window.getSelection().removeAllRanges();
-      window.getSelection().addRange(intervaloSelecao);
-
-      // Execute o comando de cópia
+      // Seleciona e copia o texto
+      areaDeTransferenciaTemp.select();
       document.execCommand('copy');
 
-      // Limpe a seleção
-      window.getSelection().removeAllRanges();
+      // Remove o elemento de área de transferência temporário
+      document.body.removeChild(areaDeTransferenciaTemp);
 
-      // (Opcional) Adicione uma mensagem ou lógica adicional após a cópia
-      console.log('Texto copiado com sucesso!'); */
+      // Alerta ou outra ação após a cópia (opcional)
+      this.$root.$refs.snackbar.show('Texto copiado!');
     }
   }
 }
