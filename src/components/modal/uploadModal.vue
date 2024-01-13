@@ -24,8 +24,13 @@ v-dialog.modal(v-model='dialog' width="500")
 
 <script>
 import TextField from '@/components/text/TextFieldComponent.vue';
+import { mapFields } from 'vuex-map-fields';
+
 export default {
   name: 'UploadModal',
+  computed: {
+    ...mapFields('user', ['user']),
+  },
   data() {
     return {
       dialog: false,
@@ -46,26 +51,21 @@ export default {
       this.selectedFile = event.target.files[0];
       console.log(this.selectedFile);
     },
-    uploadFile() {
+   async uploadFile() {
       // Transforme o arquivo em zip
       /* const formData = new FormData();
       formData.append('zipFile', this.selectedFile); */
 
-      console.log(this.selectedFile);
-
-      // Substitua a URL abaixo pela URL do seu backend para lidar com uploads de arquivos
-      //const uploadUrl = 'http://seu-backend.com/upload-zip';
-
-      // Faça a solicitação de upload usando axios
-      /* this.$axios.post(uploadUrl, formData)
-        .then(response => {
-          console.log('Arquivo ZIP enviado com sucesso!', response.data);
-          // Lógica adicional após o upload, se necessário
-        })
-        .catch(error => {
-          console.error('Erro ao enviar o arquivo ZIP', error);
-          // Lidar com erros, se necessário
-        }); */
+      await this.$store.dispatch('transcription/createTranscription', {
+        fileUrl: this.selectedFile, 
+        userId: this.user.id, 
+        name: this.name 
+      })
+      .then((response) => {
+        console.log(response);
+        this.$root.$refs.snackbar.show('Arquivo enviado com sucesso!', false);
+        this.closeModal();
+      })
     }
   }
 }

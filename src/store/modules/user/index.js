@@ -5,12 +5,11 @@ import axios from 'axios';
 export const state = {
   loggedIn: false,
   loading: false,
-  idUser: null,
+  user: null,
 };
 
 export const getters = {
   getField,
-  getUserId: (state) => state.idUser,
 };
 
 export const mutations = {
@@ -39,6 +38,7 @@ export const actions = {
 
     try {
       const response = await signInWithEmailAndPassword(auth, email, password)
+      await this.dispatch('user/getUser', {email})
       commit('updateField', { path: 'loggedIn', value: true })
       commit('updateField', { path: 'loading', value: false })
       return response;
@@ -76,9 +76,12 @@ export const actions = {
       commit('updateField', { path: 'loading', value: false })
       return error.code;
     }
+  },
 
+  async getUser({ commit }, {email}) {
+    const user = await axios.get(`${process.env.VUE_APP_SERVER_URL}/identity/user-by-email/${email}`)
+    commit('updateField', { path: 'user', value: user.data })
   }
-
 };
 
 export default {

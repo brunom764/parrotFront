@@ -9,10 +9,10 @@ div.dashboard
             span Crie um novo Resumo
             v-icon(right) mdi-plus
       v-row.resume-list
-        template(v-for="(resume, index) in resumes" :key="index")
+        template(v-for="(resume, index) in transcriptions" :key="index")
           v-col.text-left(cols=12 style="cursor: pointer;")
             span.ml-4 {{ resume.name }}
-            p.ml-4 {{ '20 min 34s' + ' - ' + '20/11/2021' }}
+            p.ml-4 {{ resume.duration + ' - ' + resume.createdAt }}
             v-divider.mr-4.ml-4
       v-row.tooltip-menu
         v-col
@@ -54,6 +54,7 @@ import Snackbar from '@/components/snackbar/snackbarComponent.vue';
 import UploadModal from '@/components/modal/uploadModal.vue';
 import AiChatSummary from '@/components/transcription/AiChatSummary.vue';
 import TrascriptionText from '@/components/transcription/TrascriptionText.vue';
+import { mapFields } from 'vuex-map-fields';
 
 export default {
   name: 'DashboardView',
@@ -63,26 +64,27 @@ export default {
     AiChatSummary,
     TrascriptionText,
   },
+  computed: {
+    ...mapFields('user', ['user']),
+    ...mapFields('transcription', ['transcriptions']),
+  },
   data() {
     return {
       uploadModalOpen: false,
-      resumeIsInAnalysis: true,
-      resumes: [{ name: 'Resumo 1' }, { name: 'Resumo 2' }, { name: 'Resumo 3'}, { name: 'Resumo 4' }, { name: 'Resumo 5' }, { name: 'Resumo 6' },],
+      resumeIsInAnalysis: false,
     }
   },
-  beforeCreate() {
+  async beforeCreate() {
     let auth = getAuth();
     onAuthStateChanged(auth, (user) => {
-      if (user) {
+      if (user && this.user) {
         this.$store.commit('user/setLoggedIn', true);
+        this.$store.dispatch('transcription/getUserTranscriptions', this.user.id)
       } else {
         this.$store.commit('user/setLoggedIn', false);
+        this.$router.push('/login');
       }
     });
-  },
-
-  created() {
-
   },
 
   methods: {
