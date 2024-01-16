@@ -81,11 +81,12 @@ export default {
       resumes: [{name: 'Resumo 1', duration: '20 min 30 seg', createdAt: '20/11/2023'}, {name: 'Resumo 2', duration: '20 min 30 seg', createdAt: '20/11/2023'}],
     }
   },
-  async beforeCreate() {
+  async mounted() {
     let auth = getAuth();
     onAuthStateChanged(auth, (user) => {
-      if (user) {
+      if (user && JSON.parse(localStorage.getItem('user'))) {
         this.$store.commit('user/setLoggedIn', true);
+        this.$store.commit('user/setUser', JSON.parse(localStorage.getItem('user')));
         this.$store.dispatch('transcription/getUserTranscriptions', this.user.id)
       } else {
         this.$store.commit('user/setLoggedIn', false);
@@ -93,6 +94,7 @@ export default {
       }
     });
   },
+
 
   methods: {
     async getTranscriptionDetails(id) {

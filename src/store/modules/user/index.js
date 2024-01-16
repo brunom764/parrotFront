@@ -16,6 +16,9 @@ export const mutations = {
   updateField,
   setLoggedIn: (state, loggedIn) => {
     state.loggedIn = loggedIn;
+  },
+  setUser: (state, user) => {
+    state.user = user;
   }
 };
 
@@ -52,12 +55,16 @@ export const actions = {
     const provider  = new GoogleAuthProvider(); 
     const response = await signInWithPopup(getAuth(), provider)
     await axios.post(`${process.env.VUE_APP_SERVER_URL}/identity/login-with-google`, {email: response.user.email})
+    await this.dispatch('user/getUserByEmail', {email: response.user.email})
   },
+
   async logoutUser({ commit }) {
     const auth = getAuth();
 
     try {
       const response = await signOut(auth)
+      localStorage.removeItem('user')
+      commit('updateField', { path: 'user', value: null })
       commit('updateField', { path: 'loggedIn', value: false })
       return response;
     } catch (error) {
@@ -80,6 +87,7 @@ export const actions = {
 
   async getUserByEmail({ commit }, {email}) {
     const user = await axios.get(`${process.env.VUE_APP_SERVER_URL}/identity/user-by-email/${email}`)
+    localStorage.setItem('user', JSON.stringify(user.data))
     commit('updateField', { path: 'user', value: user.data })
   }
 };
