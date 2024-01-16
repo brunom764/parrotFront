@@ -12,7 +12,7 @@ div.dashboard
         template(v-for="(resume, index) in resumes" :key="index")
           v-col.text-left(cols=12 style="cursor: pointer;" @click="getTranscriptionDetails(resume.id)")
             span.ml-4 {{ resume.name }}
-            p.ml-4 {{ resume.duration + ' - ' + resume.createdAt }}
+            p.ml-4 {{ formatDuration(resume.duration) + ' - ' + formatDate(resume.createdAt, 'DD/MM/YYYY') }}
             v-divider.mr-4.ml-4
       v-row.tooltip-menu
         v-col
@@ -60,6 +60,7 @@ import UploadModal from '@/components/modal/uploadModal.vue';
 import AiChatSummary from '@/components/transcription/AiChatSummary.vue';
 import TrascriptionText from '@/components/transcription/TrascriptionText.vue';
 import { mapFields } from 'vuex-map-fields';
+import moment from 'moment';
 
 export default {
   name: 'DashboardView',
@@ -78,7 +79,7 @@ export default {
       uploadModalOpen: false,
       resumeIsInAnalysis: false,
       loadingNewResume: false,
-      resumes: [{name: 'Resumo 1', duration: '20 min 30 seg', createdAt: '20/11/2023'}, {name: 'Resumo 2', duration: '20 min 30 seg', createdAt: '20/11/2023'}],
+      resumes: [{name: 'Resumo 1', duration: '50', createdAt: '2024-03-01'}, {name: 'Resumo 2', duration: '20 min 30 seg', createdAt: '20/11/2023'}],
     }
   },
   async mounted() {
@@ -90,13 +91,24 @@ export default {
         this.$store.dispatch('transcription/getUserTranscriptions', this.user.id)
       } else {
         this.$store.commit('user/setLoggedIn', false);
-        this.$router.push('/login');
+        this.logout();
       }
     });
   },
 
 
   methods: {
+    formatDuration(duration) {
+      let minutes = Math.floor(duration / 60);
+      let seconds = duration % 60;
+      seconds = seconds < 10 ? '0' + seconds : seconds;
+      return minutes + 'm ' + seconds + 's';
+    },
+
+    formatDate(date, format) {
+      return moment(date).format(format);
+    },
+
     async getTranscriptionDetails(id) {
       this.loadingNewResume = true;
       await this.$store.dispatch('transcription/getTranscriptionById', id)
