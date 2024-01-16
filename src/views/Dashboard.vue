@@ -8,9 +8,9 @@ div.dashboard
           v-btn.mt-4(color="auxiliary" rounded @click="uploadModalOpen = true")
             span Crie um novo Resumo
             v-icon(right) mdi-plus
-      v-row.resume-list
-        template(v-for="(resume, index) in transcriptions" :key="index")
-          v-col.text-left(cols=12 style="cursor: pointer;")
+      v-row.resume-list.flex-start
+        template(v-for="(resume, index) in resumes" :key="index")
+          v-col.text-left(cols=12 style="cursor: pointer;" @click="getTranscriptionDetails(resume.id)")
             span.ml-4 {{ resume.name }}
             p.ml-4 {{ resume.duration + ' - ' + resume.createdAt }}
             v-divider.mr-4.ml-4
@@ -25,26 +25,31 @@ div.dashboard
                 img.icon(src="@/assets/icons/logout.svg" alt="logout" )
     v-col.transcription(cols=9)
       img.logo(src="../assets/logo.png" alt="logo")
-      v-container.fill-height(v-if="!resumeIsInAnalysis" fluid)
-        v-row.justify-center.align-center
-          v-col(cols=12) 
-            span.text Começe a analisar seus áudios!
-      v-container(v-if="resumeIsInAnalysis" fluid)
-        v-row
-          v-col.left-text(cols=5) 
-            span.text Resumo da entrevista
-            v-row.pl-3 
-              v-col.pl-0
-                p 20 min 30 seg
-              v-col
-                p 20/11/2023
-              v-col
-                p 2033 palavras
-        v-row
-          v-col(cols=6)
-            AiChatSummary
-          v-col(cols=6)
-            TrascriptionText
+      template(v-if="loadingNewResume")
+        v-row.fill-height.d-flex.justify-center.align-center 
+          v-col.text-center
+            v-progress-circular(indeterminate color="auxiliary")
+      template(v-else)
+        v-container.fill-height(v-if="!resumeIsInAnalysis" fluid)
+          v-row.justify-center.align-center
+            v-col(cols=12) 
+              span.text Começe a analisar seus áudios!
+        v-container(v-if="resumeIsInAnalysis" fluid)
+          v-row
+            v-col.left-text(cols=5) 
+              span.text Resumo da entrevista
+              v-row.pl-3 
+                v-col.pl-0
+                  p 20 min 30 seg
+                v-col
+                  p 20/11/2023
+                v-col
+                  p 2033 palavras
+          v-row
+            v-col(cols=6)
+              AiChatSummary
+            v-col(cols=6)
+              TrascriptionText
             
 </template>
 
@@ -66,18 +71,20 @@ export default {
   },
   computed: {
     ...mapFields('user', ['user']),
-    ...mapFields('transcription', ['transcriptions']),
+    ...mapFields('transcription', ['transcriptions, transcription']),
   },
   data() {
     return {
       uploadModalOpen: false,
       resumeIsInAnalysis: false,
+      loadingNewResume: false,
+      resumes: [{name: 'Resumo 1', duration: '20 min 30 seg', createdAt: '20/11/2023'}, {name: 'Resumo 2', duration: '20 min 30 seg', createdAt: '20/11/2023'}],
     }
   },
   async beforeCreate() {
     let auth = getAuth();
     onAuthStateChanged(auth, (user) => {
-      if (user && this.user) {
+      if (user) {
         this.$store.commit('user/setLoggedIn', true);
         this.$store.dispatch('transcription/getUserTranscriptions', this.user.id)
       } else {
@@ -88,6 +95,16 @@ export default {
   },
 
   methods: {
+    async getTranscriptionDetails(id) {
+      this.loadingNewResume = true;
+      await this.$store.dispatch('transcription/getTranscriptionById', id)
+      .then((response) => {
+        console.log(response);
+        this.resumeIsInAnalysis = true;
+      })
+      this.loadingNewResume = false;
+    },
+
     sendQuestion(){
       if (this.question.trim() !== "") {
         this.messages.push({ text: this.question, isUser: true });
