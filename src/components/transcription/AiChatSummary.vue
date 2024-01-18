@@ -10,19 +10,19 @@ v-card.card.d-flex.flex-column.justify-center(height="70vh")
           span Parrot AI Summary
       v-divider.mt-2 
     template(v-if="parrotArea === 0")
-      v-row(v-if="messages.length < 1").chat-area.align-center
+      v-row(v-if="questions.length < 1").chat-area.align-center
         v-col(cols="12")
           p Sua resposta aparecerá aqui
       v-row(v-else).chat-area
         v-col(cols="12")
-          v-row(v-for="(message, index) in messages" :key="index" :class="{ 'user-message': message.isUser, 'bot-message': !message.isUser }")
+          v-row(v-for="(message, index) in questions" :key="index" :class="{ 'user-message': message.question, 'bot-message': message.answer }")
             v-col(cols="12")
-              v-icon.mr-2(v-if="message.isUser") mdi-account
+              v-icon.mr-2(v-if="message.question") mdi-account
               v-icon.ml-2(v-else) mdi-robot
               p.ml-2.mr-2 {{ message.text }}
       v-row.chat-input
         v-col(cols="12")
-          v-text-field.ml-3.mr-3(label="O que você gostaria de saber?" v-model="question" variant="outlined" clearable append-inner-icon="mdi-arrow-up-box" single-line @click:append-inner="sendQuestion")
+          v-text-field.ml-3.mr-3(label="O que você gostaria de saber?" v-model="newQuestion" variant="outlined" clearable append-inner-icon="mdi-arrow-up-box" single-line @click:append-inner="sendQuestion")
     template(v-else)
       v-row
         v-col(cols=12)
@@ -39,17 +39,28 @@ export default {
   },
   data() {
     return {
-        question: '',
-        messages: [],
+        newQuestion: '',
         parrotArea: 0,
     }
   },
+  props: {
+    questions: {
+      type: Array,
+      required: true,
+    },
+    summary: {
+      type: String,
+      required: true,
+    },
+  },
   methods: {
-    sendQuestion() {
-      if (this.question.trim() !== "") {
-      this.messages.push({ text: this.question, isUser: true });
-      this.messages.push({ text: "Resposta do Bot", isUser: false });
-      this.question = "";
+    async sendQuestion() {
+      if (this.newQuestion.trim() !== "") {
+        await this.$store.dispatch('question/createQuestion', {
+          question: this.newQuestion,
+          transcriptionId: this.transcriptionId,
+        });
+        this.newQuestion = "";
       }
     },
   },

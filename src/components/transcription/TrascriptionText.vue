@@ -15,9 +15,10 @@ v-card.card.d-flex.flex-column.justify-center(height="70vh")
 <script>
 export default {
   name: 'TrascriptionText',
-  data() {
-    return {
-      text: '',
+  props: {
+    text: {
+      type: String,
+      required: true,
     }
   },
   methods: {

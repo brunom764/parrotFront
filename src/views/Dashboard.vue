@@ -9,7 +9,7 @@ div.dashboard
             span Crie um novo Resumo
             v-icon(right) mdi-plus
       v-row.resume-list.flex-start
-        template(v-for="(resume, index) in resumes" :key="index")
+        template(v-for="(resume, index) in transcriptions" :key="index")
           v-col.text-left(cols=12 style="cursor: pointer;" @click="getTranscriptionDetails(resume.id)")
             span.ml-4 {{ resume.name }}
             p.ml-4 {{ formatDuration(resume.duration) + ' - ' + formatDate(resume.createdAt, 'DD/MM/YYYY') }}
@@ -37,19 +37,19 @@ div.dashboard
         v-container(v-if="resumeIsInAnalysis" fluid)
           v-row
             v-col.left-text(cols=5) 
-              span.text Resumo da entrevista
+              span.text {{ transcription.name }}
               v-row.pl-3 
                 v-col.pl-0
-                  p 20 min 30 seg
+                  p {{ formatDuration(transcription.duration) }}
                 v-col
-                  p 20/11/2023
+                  p {{ transcription.createdAt }}
                 v-col
                   p 2033 palavras
           v-row
             v-col(cols=6)
-              AiChatSummary
+              AiChatSummary(:questions="questions" :summary="transcription.summary")
             v-col(cols=6)
-              TrascriptionText
+              TrascriptionText(:text="transcription.text")
             
 </template>
 
@@ -73,19 +73,19 @@ export default {
   computed: {
     ...mapFields('user', ['user']),
     ...mapFields('transcription', ['transcriptions, transcription']),
+    ...mapFields('question', ['questions']),
   },
   data() {
     return {
       uploadModalOpen: false,
       resumeIsInAnalysis: false,
       loadingNewResume: false,
-      resumes: [{name: 'Resumo 1', duration: '50', createdAt: '2024-03-01'}, {name: 'Resumo 2', duration: '20 min 30 seg', createdAt: '20/11/2023'}],
     }
   },
   async mounted() {
     let auth = getAuth();
     onAuthStateChanged(auth, (user) => {
-      if (user && JSON.parse(localStorage.getItem('user'))) {
+      if ((user && JSON.parse(localStorage.getItem('user'))) && (user.email === JSON.parse(localStorage.getItem('user')).email)) {
         this.$store.commit('user/setLoggedIn', true);
         this.$store.commit('user/setUser', JSON.parse(localStorage.getItem('user')));
         this.$store.dispatch('transcription/getUserTranscriptions', this.user.id)
@@ -111,7 +111,14 @@ export default {
 
     async getTranscriptionDetails(id) {
       this.loadingNewResume = true;
-      await this.$store.dispatch('transcription/getTranscriptionById', id)
+      const promisses = [];
+      promisses.push(
+        await this.$store.dispatch('transcription/getTranscriptionById', id)
+      );
+      promisses.push(
+        await this.$store.dispatch('question/getQuestionsByTransId', id)
+      );
+      await Promise.all(promisses)
       .then((response) => {
         console.log(response);
         this.resumeIsInAnalysis = true;
@@ -129,7 +136,8 @@ export default {
     logout() {
       this.$store.dispatch('user/logoutUser')
       .then(() => {
-        this.$root.$refs.snackbar.show('Usuário deslogado com sucesso!');
+        localStorage.removeItem('user');
+        this.$root.$refs.snackbar.show('Usuário deslogado com sucesso!', true);
         this.$router.push('/login');
       })
     }

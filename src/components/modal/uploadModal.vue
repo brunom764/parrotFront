@@ -9,7 +9,8 @@ v-dialog.modal(v-model='dialog' width="500")
           v-btn(variant='text' @click='closeModal')
             v-icon mdi-close
     v-card-text
-      v-container
+      v-progress-circular(v-if="loading" indeterminate color="auxiliary")
+      v-container(v-else)
         v-row
           v-col(cols='12')
             label.text Nome do Resumo:
@@ -35,7 +36,8 @@ export default {
     return {
       dialog: false,
       name: '',
-      selectedFile: null
+      selectedFile: null,
+      loading: false,
     }
   },
   components: {
@@ -55,7 +57,7 @@ export default {
       // Transforme o arquivo em zip
       /* const formData = new FormData();
       formData.append('zipFile', this.selectedFile); */
-
+      this.loading = true;
       await this.$store.dispatch('transcription/createTranscription', {
         fileUrl: this.selectedFile, 
         userId: this.user.id, 
@@ -64,6 +66,7 @@ export default {
       .then((response) => {
         console.log(response);
         this.$root.$refs.snackbar.show('Arquivo enviado com sucesso!', false);
+        this.loading = false;
         this.closeModal();
       })
     }
