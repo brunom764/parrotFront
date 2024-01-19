@@ -9,7 +9,9 @@ div.dashboard
             span Crie um novo Resumo
             v-icon(right) mdi-plus
       v-row.resume-list.flex-start
-        template(v-for="(resume, index) in transcriptions" :key="index")
+        v-col.text-center(v-if="!transcriptions" cols=12)
+          span Seus resumos aparecerão aqui!
+        template(v-else v-for="(resume, index) in transcriptions" :key="index")
           v-col.text-left(cols=12 style="cursor: pointer;" @click="getTranscriptionDetails(resume.id)")
             span.ml-4 {{ resume.name }}
             p.ml-4 {{ formatDuration(resume.duration) + ' - ' + formatDate(resume.createdAt, 'DD/MM/YYYY') }}
@@ -33,7 +35,7 @@ div.dashboard
         v-container.fill-height(v-if="!resumeIsInAnalysis" fluid)
           v-row.justify-center.align-center
             v-col(cols=12) 
-              span.text Começe a analisar seus áudios!
+              span.text Crie um novo resumo e começe a analisar seus áudios!
         v-container(v-if="resumeIsInAnalysis" fluid)
           v-row
             v-col.left-text(cols=5) 

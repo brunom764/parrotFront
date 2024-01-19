@@ -51,7 +51,6 @@ export default {
 
     handleFileChange(event) {
       this.selectedFile = event.target.files[0];
-      console.log(this.selectedFile);
     },
    async uploadFile() {
       // Transforme o arquivo em zip
@@ -59,7 +58,7 @@ export default {
       formData.append('zipFile', this.selectedFile); */
       this.loading = true;
       await this.$store.dispatch('transcription/createTranscription', {
-        fileUrl: this.selectedFile, 
+        file: this.selectedFile, 
         userId: this.user.id, 
         name: this.name 
       })
