@@ -38,15 +38,21 @@ export const actions = {
 
   async createTranscription({file, userId, name}) {
     try {
-      const response = await axios.post(
-        `${process.env.VUE_APP_SERVER_URL}/transcription/upload-audio/${userId}`,
-        {file, name}
-      )
-      return response
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('name', name);
+
+        const response = await axios.post(
+            `${process.env.VUE_APP_SERVER_URL}/transcription/upload-audio/${userId}`,
+            formData,
+            { headers: { 'Content-Type': 'multipart/form-data' } }
+        )
+
+        return response;
     } catch (error) {
-      return error
+        return error;
     }
-  },
+},
 
 };
 
