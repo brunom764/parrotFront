@@ -36,7 +36,7 @@ export const actions = {
     }
   },
 
-  async createTranscription({file, userId, name}) {
+  async createTranscription({commit}, {file, userId, name}) {
     try {
         const formData = new FormData();
         formData.append('file', file);
@@ -47,12 +47,12 @@ export const actions = {
             formData,
             { headers: { 'Content-Type': 'multipart/form-data' } }
         )
-
+        commit('updateField', { path: 'transcription', value: response.data })
         return response;
     } catch (error) {
         return error;
     }
-},
+  },
 
 };
 

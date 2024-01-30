@@ -92,8 +92,7 @@ export default {
     
     async loginWithGoogle() {
       await this.$store.dispatch('user/loginUserWithGoogle')
-      .then((response) => {
-        console.log(response)
+      .then(() => {
         this.$root.$refs.snackbar.show('Usuário logado com sucesso!');
         this.$router.push('/dashboard');
       })

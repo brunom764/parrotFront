@@ -9,9 +9,9 @@ div.dashboard
             span Crie um novo Resumo
             v-icon(right) mdi-plus
       v-row.resume-list.flex-start
-        v-col.text-center(v-if="!transcriptions" cols=12)
+        //v-col.text-center(v-if="transcriptions?.length > 0" cols=12)
           span Seus resumos aparecerão aqui!
-        template(v-else v-for="(resume, index) in transcriptions" :key="index")
+        template(v-for="(resume, index) in transcriptions" :key="index")
           v-col.text-left(cols=12 style="cursor: pointer;" @click="getTranscriptionDetails(resume.id)")
             span.ml-4 {{ resume.name }}
             p.ml-4 {{ formatDuration(resume.duration) + ' - ' + formatDate(resume.createdAt, 'DD/MM/YYYY') }}
@@ -74,7 +74,7 @@ export default {
   },
   computed: {
     ...mapFields('user', ['user']),
-    ...mapFields('transcription', ['transcriptions, transcription']),
+    ...mapFields('transcription', ['transcriptions', 'transcription']),
     ...mapFields('question', ['questions']),
   },
   data() {
@@ -86,13 +86,13 @@ export default {
   },
   async mounted() {
     let auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
       if ((user && JSON.parse(localStorage.getItem('user'))) && (user.email === JSON.parse(localStorage.getItem('user')).email)) {
         this.$store.commit('user/setLoggedIn', true);
         this.$store.commit('user/setUser', JSON.parse(localStorage.getItem('user')));
-        this.$store.dispatch('transcription/getUserTranscriptions', this.user.id)
+        await this.$store.dispatch('transcription/getUserTranscriptions', this.user.id)
       } else {
-        this.$store.commit('user/setLoggedIn', false);
+        await this.$store.commit('user/setLoggedIn', false);
         this.logout();
       }
     });
@@ -121,8 +121,7 @@ export default {
         await this.$store.dispatch('question/getQuestionsByTransId', id)
       );
       await Promise.all(promisses)
-      .then((response) => {
-        console.log(response);
+      .then(() => {
         this.resumeIsInAnalysis = true;
       })
       this.loadingNewResume = false;
