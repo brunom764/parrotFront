@@ -1,9 +1,11 @@
 import { getField, updateField } from "vuex-map-fields";
 import axios from 'axios';
+import Swal from "sweetalert2";
 
 export const state = {
   transcriptions: [],
   transcription: {},
+  loadingNewTranscription: false,
 };
 
 export const getters = {
@@ -37,24 +39,45 @@ export const actions = {
   },
 
   async createTranscription({commit}, {file, userId, name}) {
+    openLoadingTranscriptionAlert();
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('name', name);
     try {
-        const formData = new FormData();
-        formData.append('file', file);
-        formData.append('name', name);
-
         const response = await axios.post(
             `${process.env.VUE_APP_SERVER_URL}/transcription/upload-audio/${userId}`,
             formData,
             { headers: { 'Content-Type': 'multipart/form-data' } }
         )
-        commit('updateField', { path: 'transcription', value: response.data })
-        return response;
+        if(response.status === 200) {
+          commit('updateField', { path: 'transcription', value: response.data })
+        }
+        CloseLoadingTranscriptionAlert();
     } catch (error) {
         return error;
     }
   },
 
 };
+
+function openLoadingTranscriptionAlert() {
+  Swal.fire({
+      html: 'Aguarde enquanto sua nova transcrição é carregada!',
+      position: 'top-end',
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      showConfirmButton: false,
+      backdrop: false,
+      width: '300px',
+      willOpen: () => {
+          Swal.showLoading();
+      }
+  });
+}
+
+function CloseLoadingTranscriptionAlert() {
+  Swal.close();
+}
 
 export default {
   namespaced: true,

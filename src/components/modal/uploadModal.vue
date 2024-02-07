@@ -52,21 +52,20 @@ export default {
     handleFileChange(event) {
       this.selectedFile = event.target.files[0];
     },
-    async uploadFile() {
+    uploadFile() {
       // Transforme o arquivo em zip
       /* const formData = new FormData();
       formData.append('zipFile', this.selectedFile); */
       this.loading = true;
-      await this.$store.dispatch('transcription/createTranscription', {
+      this.$store.dispatch('transcription/createTranscription', {
         file: this.selectedFile, 
         userId: this.user.id, 
         name: this.name 
       })
-      .then(() => {
-        this.$root.$refs.snackbar.show('Arquivo enviado com sucesso!', false);
-        this.loading = false;
-        this.closeModal();
-      })
+      this.$root.$refs.snackbar.show('Arquivo enviado com sucesso!', false);
+      this.loading = false;
+      this.name = ''
+      this.closeModal();
     }
   }
 }

@@ -1,5 +1,5 @@
 <template lang="pug">
-UploadModal(v-model="uploadModalOpen" @close="uploadModalOpen = false")
+UploadModal(v-model="uploadModalOpen" @close="this.uploadModalOpen = false")
 div.dashboard
   v-row
     v-col.menu.d-flex.flex-column.justify-center(cols=3)
@@ -74,7 +74,7 @@ export default {
   },
   computed: {
     ...mapFields('user', ['user']),
-    ...mapFields('transcription', ['transcriptions', 'transcription']),
+    ...mapFields('transcription', ['transcriptions', 'transcription', 'loadingNewTranscription']),
     ...mapFields('question', ['questions']),
   },
   data() {
@@ -98,8 +98,8 @@ export default {
     });
   },
 
-
   methods: {
+
     formatDuration(duration) {
       let minutes = Math.floor(duration / 60);
       let seconds = duration % 60;
@@ -146,7 +146,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped>  
 .new-resume{
   flex: 0 0 15%;  
 }
