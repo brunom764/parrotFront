@@ -3,7 +3,7 @@ div#app
   Snackbar(ref="snackbar")
   main
     router-view
-  Footer
+  Footer(v-if="showFooter")
 </template>
 
 <script>
@@ -13,8 +13,13 @@ import Snackbar from './components/snackbar/snackbarComponent.vue';
 export default {
   name: 'App',
   components: {
-    Footer,
+  Footer,
     Snackbar,
+  },
+computed: {
+    showFooter() {
+      return this.$route.path !== '/dashboard';
+    }
   }
 }
 </script>
@@ -22,14 +27,13 @@ export default {
 <style>
 #app {
   font-family: 'Poppins', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #1f0310;
   background-color: #a3d95b;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  overflow: hidden;
 }
 main {
   flex: 1;

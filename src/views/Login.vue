@@ -20,7 +20,7 @@ v-container.login-container.mt-10.pt-10
       v-row(justify="center")
         p(@click="forgotPassword = true") Esqueci a senha
       v-row.pt-3(justify="center")
-        v-btn(width="400px" rounded color="secundary" @click="login()")
+        v-btn(width="400px" rounded color="auxiliary" @click="login()")
           span Entrar
       v-row.pt-3(justify="center")
         a(href="/register") Não tem uma conta? Cadastre-se
@@ -30,7 +30,7 @@ v-container.login-container.mt-10.pt-10
       v-row(justify="center")
         p(@click="forgotPassword = false") Voltar para tela de login
       v-row.pt-3(justify="center")
-        v-btn(width="400px" rounded color="secundary" @click="resetPassword()")
+        v-btn(width="400px" rounded color="auxiliary" @click="resetPassword()")
           span Redefinir senha
       v-row.pt-3(justify="center")
         a(href="/register") Não tem uma conta? Cadastre-se
@@ -84,7 +84,7 @@ export default {
             break;
           default:
             this.$root.$refs.snackbar.show('Usuário logado com sucesso!');
-            this.$router.push('/feed');
+            this.$router.push('/dashboard');
             break;
         }
       })
@@ -94,7 +94,7 @@ export default {
       await this.$store.dispatch('user/loginUserWithGoogle')
       .then(() => {
         this.$root.$refs.snackbar.show('Usuário logado com sucesso!');
-        this.$router.push('/feed');
+        this.$router.push('/dashboard');
       })
     },
 

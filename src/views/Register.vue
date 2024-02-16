@@ -14,7 +14,7 @@ v-container.login-container.pt-10.mt-10
     v-row
       text-field(v-model="confirmPassword" type="password" label="Confirme a senha")
     v-row.pt-3(justify="center")
-      v-btn.registrar-button(width="400px" rounded color="secundary" @click="register()") 
+      v-btn.registrar-button(width="400px" rounded color="auxiliary" @click="register()") 
         span Cadastrar
     v-row.pt-3(justify="center")
         a(href="/login") Já tem uma conta? Faça login
@@ -64,7 +64,6 @@ export default {
         password: this.password,
       })
       .then((result) => {
-        console.log(result);
         if (result.status === 201){
           this.$root.$refs.snackbar.show('Usuário criado com sucesso!');
           this.$router.push('/login');

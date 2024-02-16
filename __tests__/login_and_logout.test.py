@@ -20,7 +20,7 @@ login_button.click()
 
 time.sleep(2)
 
-expected_url = 'http://localhost:8080/feed'
+expected_url = 'http://localhost:8080/dashboard'
 current_url = driver.current_url
 
 if expected_url in current_url:

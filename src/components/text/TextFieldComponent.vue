@@ -2,6 +2,7 @@
 v-text-field(
   :label="label"
   :type="type"
+  :solo="solo"
 )
 </template>
 
@@ -10,7 +11,8 @@ export default {
   name: 'TextField',
   props: {
   label: String,
-  type: String
+  type: String,
+  solo: Boolean,
   }
 }
 </script>
