@@ -22,7 +22,7 @@ div.dashboard
             v-col.tooltip.pa-0(cols=12)
               v-btn(variant="text")
                 img.icon(src="@/assets/icons/coin.svg" alt="credits" )
-                p 0
+                p {{ user.credits }}
               v-btn(@click="logout" variant="text")
                 img.icon(src="@/assets/icons/logout.svg" alt="logout" )
     v-col.transcription(cols=9)
@@ -45,7 +45,7 @@ div.dashboard
                   p {{ formatDuration(transcription.duration) }}
                 v-col
                   p {{ transcription.createdAt }}
-                v-col
+                //v-col
                   p 2033 palavras
           v-row
             v-col(cols=6)
