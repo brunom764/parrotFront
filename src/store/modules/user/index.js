@@ -3,9 +3,9 @@ import { signInWithEmailAndPassword, getAuth, signOut, GoogleAuthProvider, signI
 import axios from 'axios';
 
 export const state = {
-  loggedIn: false,
   loading: false,
   user: null,
+  credits: 0,
 };
 
 export const getters = {
@@ -14,12 +14,12 @@ export const getters = {
 
 export const mutations = {
   updateField,
-  setLoggedIn: (state, loggedIn) => {
-    state.loggedIn = loggedIn;
-  },
   setUser: (state, user) => {
     state.user = user;
-  }
+  },
+  setCredits: (state, credits) => {
+    state.credits = credits;
+  },
 };
 
 export const actions = {
@@ -42,7 +42,6 @@ export const actions = {
     try {
       const response = await signInWithEmailAndPassword(auth, email, password)
       await this.dispatch('user/getUserByEmail', {email})
-      commit('updateField', { path: 'loggedIn', value: true })
       commit('updateField', { path: 'loading', value: false })
       return response;
     } catch (error) {
@@ -65,7 +64,6 @@ export const actions = {
       const response = await signOut(auth)
       localStorage.removeItem('user')
       commit('updateField', { path: 'user', value: null })
-      commit('updateField', { path: 'loggedIn', value: false })
       return response;
     } catch (error) {
       return error.code;
@@ -88,6 +86,7 @@ export const actions = {
   async getUserByEmail({ commit }, {email}) {
     const user = await axios.get(`${process.env.VUE_APP_SERVER_URL}/identity/user-by-email/${email}`)
     localStorage.setItem('user', JSON.stringify(user.data))
+    commit('updateField', { path: 'credits', value: user.data.credits })
     commit('updateField', { path: 'user', value: user.data })
   }
 };

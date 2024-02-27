@@ -2,29 +2,27 @@
 UploadModal(v-model="uploadModalOpen" @close="this.uploadModalOpen = false")
 div.dashboard
   v-row
-    v-col.menu.d-flex.flex-column.justify-center(cols=3)
-      v-row.new-resume
-        v-col
-          v-btn.mt-4(color="auxiliary" rounded @click="uploadModalOpen = true")
-            span Crie um novo Resumo
-            v-icon(right) mdi-plus
-      v-row.resume-list.flex-start
-        //v-col.text-center(v-if="transcriptions?.length > 0" cols=12)
-          span Seus resumos aparecerão aqui!
-        template(v-for="(resume, index) in transcriptions" :key="index")
-          v-col.text-left(cols=12 style="cursor: pointer;" @click="getTranscriptionDetails(resume.id)")
-            span.ml-4 {{ resume.name }}
-            p.ml-4 {{ formatDuration(resume.duration) + ' - ' + formatDate(resume.createdAt, 'DD/MM/YYYY') }}
-            v-divider.mr-4.ml-4
-      v-row.tooltip-menu
-        v-col
-          v-row.justify-center.align-center
-            v-col.tooltip.pa-0(cols=12)
-              v-btn(variant="text")
-                img.icon(src="@/assets/icons/coin.svg" alt="credits" )
-                p {{ user.credits }}
-              v-btn(@click="logout" variant="text")
-                img.icon(src="@/assets/icons/logout.svg" alt="logout" )
+    v-col(cols=3)
+      v-container.menu.d-flex.flex-column.justify-center.ma-0.pa-0
+        v-row
+          v-col(cols=12)
+            v-btn.mt-4(color="auxiliary" rounded @click="uploadModalOpen = true")
+              span Crie um novo Resumo
+              v-icon(right) mdi-plus
+        v-row.resume-list
+          v-col(cols=12)
+            template(v-for="(resume, index) in transcriptions" :key="index")
+              v-col.text-left.mb-0.mt-0(cols=12 style="cursor: pointer; max-height: 100px" @click="getTranscriptionDetails(resume.id)")
+                span.ml-4 {{ resume.name }}
+                p.ml-4 {{ formatDuration(resume.duration) + ' - ' + formatDate(resume.createdAt, 'DD/MM/YYYY') }}
+                v-divider.mr-4.ml-4
+        v-row.justify-center.d-flex
+          v-col.tooltip.pa-0(cols=12)
+            v-btn(variant="text")
+              img.icon(src="@/assets/icons/coin.svg" alt="credits" )
+              p {{ credits }}
+            v-btn(@click="logout" variant="text")
+              img.icon(src="@/assets/icons/logout.svg" alt="logout" )
     v-col.transcription(cols=9)
       img.logo(src="../assets/logo.png" alt="logo")
       template(v-if="loadingNewResume")
@@ -40,18 +38,18 @@ div.dashboard
           v-row
             v-col.left-text(cols=5) 
               span.text {{ transcription.name }}
-              v-row.pl-3 
+              v-row(style="max-width: 250px;").pl-3 
                 v-col.pl-0
                   p {{ formatDuration(transcription.duration) }}
                 v-col
-                  p {{ transcription.createdAt }}
+                  p {{ formatDate(transcription.createdAt, 'DD/MM/YYYY') }}
                 //v-col
                   p 2033 palavras
           v-row
             v-col(cols=6)
-              AiChatSummary(:questions="questions" :summary="transcription.summary")
+              AiChatSummary(:questions="questions" :summary="summary")
             v-col(cols=6)
-              TrascriptionText(:text="transcription.text")
+              TrascriptionText(:transcription="transcription.text")
             
 </template>
 
@@ -73,9 +71,10 @@ export default {
     TrascriptionText,
   },
   computed: {
-    ...mapFields('user', ['user']),
+    ...mapFields('user', ['user', 'credits']),
     ...mapFields('transcription', ['transcriptions', 'transcription', 'loadingNewTranscription']),
     ...mapFields('question', ['questions']),
+    ...mapFields('summary', ['summary']),
   },
   data() {
     return {
@@ -88,11 +87,10 @@ export default {
     let auth = getAuth();
     onAuthStateChanged(auth, async (user) => {
       if ((user && JSON.parse(localStorage.getItem('user'))) && (user.email === JSON.parse(localStorage.getItem('user')).email)) {
-        this.$store.commit('user/setLoggedIn', true);
-        this.$store.commit('user/setUser', JSON.parse(localStorage.getItem('user')));
+        await this.$store.commit('user/setUser', JSON.parse(localStorage.getItem('user')));
+        await this.$store.commit('user/setCredits', this.user.credits)
         await this.$store.dispatch('transcription/getUserTranscriptions', this.user.id)
       } else {
-        await this.$store.commit('user/setLoggedIn', false);
         this.logout();
       }
     });
@@ -120,6 +118,9 @@ export default {
       promisses.push(
         await this.$store.dispatch('question/getQuestionsByTransId', id)
       );
+      promisses.push(
+        await this.$store.dispatch('summary/getSummaryByTransId', id)
+      );
       await Promise.all(promisses)
       .then(() => {
         this.resumeIsInAnalysis = true;
@@ -127,13 +128,6 @@ export default {
       this.loadingNewResume = false;
     },
 
-    sendQuestion(){
-      if (this.question.trim() !== "") {
-        this.messages.push({ text: this.question, isUser: true });
-        this.messages.push({ text: "Resposta do Bot", isUser: false });
-        this.question = "";
-      }
-    },
     logout() {
       this.$store.dispatch('user/logoutUser')
       .then(() => {
@@ -147,15 +141,11 @@ export default {
 </script>
 
 <style scoped>  
-.new-resume{
-  flex: 0 0 15%;  
-}
 .resume-list {
   flex: 1 1 70%;
   overflow-y: auto;
-}
-.tooltip-menu {
-  flex: 0 0 15%; 
+  display: flex;
+  justify-content: center;
 }
 .transcription {
   background-color: #b5da85;
@@ -173,7 +163,7 @@ export default {
 }
 .menu {
   box-shadow: 10px 0px 5px -2px rgba(0,0,0,0.2); 
-  height: 102vh;
+  height: 100vh;
 }
 .logo {
   position: absolute;
@@ -196,7 +186,8 @@ export default {
   background-color: #1f0310;
   border-radius: 10px;
   color: white;
-  max-width: 130px;
+  max-width: 150px;
+  max-height: 35px;
 }
 
 p {
