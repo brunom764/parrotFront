@@ -48,8 +48,10 @@ export const actions = {
             `${process.env.VUE_APP_SERVER_URL}/transcription/upload-audio/${userId}`,
             formData,
         )
-        if(response.status === 200) {
+        if(response.status === 201) {
           commit('updateField', { path: 'transcription', value: response.data })
+          let userJson = JSON.parse(localStorage.getItem('user'));
+          this.dispatch('user/getUserByEmail', { email: userJson.email});
         }
         CloseLoadingTranscriptionAlert();
         return response;

@@ -128,10 +128,9 @@ export default {
       this.loadingNewResume = false;
     },
 
-    logout() {
-      this.$store.dispatch('user/logoutUser')
+    async logout() {
+      await this.$store.dispatch('user/logoutUser')
       .then(() => {
-        localStorage.removeItem('user');
         this.$root.$refs.snackbar.show('Usuário deslogado com sucesso!', true);
         this.$router.push('/login');
       })
@@ -162,7 +161,7 @@ export default {
 
 }
 .menu {
-  box-shadow: 10px 0px 5px -2px rgba(0,0,0,0.2); 
+  box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
   height: 100vh;
 }
 .logo {

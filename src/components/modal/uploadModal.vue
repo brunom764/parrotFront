@@ -63,12 +63,12 @@ export default {
         name: this.name 
       }).then((response) => {
         if (response.status === 201 || response.status === 200) {
-          this.$root.$refs.snackbar.show('Arquivo enviado com sucesso!', false);
+          this.$root.$refs.snackbar.show('Arquivo criado com sucesso!', false);
         }
         else {
-          this.$root.$refs.snackbar.show('Erro ao enviar arquivo!', true);
+          this.$root.$refs.snackbar.show('Erro ao criar arquivo!', true);
         }
-
+        this.$router.push('/dashboard');
       })
       this.loading = false;
       this.name = ''
