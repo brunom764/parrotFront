@@ -3,29 +3,36 @@ v-card.card.d-flex.flex-column.justify-center(height="70vh")
   v-row.header-row
     v-col.left-text.mt-4(cols=6) 
       span.text.ml-5 Seu áudio transcrito:
-      p.ml-5 3234 palavras
+      //p.ml-5 3234 palavras
     v-col.mt-4.text-end(cols=6)
       v-icon.mr-5(style="cursor:pointer;" @click="copyText") mdi-content-copy
     v-divider 
   v-row.text-area
-    v-col(cols=12)
-      p.texto {{ text }}
+    v-col.left-text(v-for="(line, index) in transcription" cols=12)
+      span.ml-1(style="font-weight: bold") {{ line.speaker }}
+      p.ml-1 {{ line.text }}
 </template>
 
 <script>
 export default {
   name: 'TrascriptionText',
   props: {
-    text: {
-      type: String,
+    transcription: {
+      type: Array,
       required: true,
     }
   },
   methods: {
     copyText() {
+      let textToCopy = '';
+      this.transcription.forEach((line) => {
+        textToCopy += line.speaker + ': ' + line.text + '\n';
+      })
       // Criação de um elemento de área de transferência temporário
+  
       const areaDeTransferenciaTemp = document.createElement('textarea');
-      areaDeTransferenciaTemp.value = this.text;
+      areaDeTransferenciaTemp.value = textToCopy;
+
       // Adiciona o elemento de área de transferência temporário ao DOM
       document.body.appendChild(areaDeTransferenciaTemp);
 
@@ -54,7 +61,7 @@ export default {
   text-align: left;
 }
 .header-row {
-  flex: 0 0 20%;  
+  flex: 0 0 15%;  
 }
 .text {
   font-size: 20px;

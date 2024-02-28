@@ -61,8 +61,15 @@ export default {
         file: this.selectedFile, 
         userId: this.user.id, 
         name: this.name 
+      }).then((response) => {
+        if (response.status === 201 || response.status === 200) {
+          this.$root.$refs.snackbar.show('Arquivo criado com sucesso!', false);
+        }
+        else {
+          this.$root.$refs.snackbar.show('Erro ao criar arquivo!', true);
+        }
+        this.$router.push('/dashboard');
       })
-      this.$root.$refs.snackbar.show('Arquivo enviado com sucesso!', false);
       this.loading = false;
       this.name = ''
       this.closeModal();

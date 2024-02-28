@@ -15,18 +15,20 @@ v-card.card.d-flex.flex-column.justify-center(height="70vh")
           p Sua resposta aparecerá aqui
       v-row(v-else).chat-area
         v-col(cols="12")
-          v-row(v-for="(message, index) in questions" :key="index" :class="{ 'user-message': message.question, 'bot-message': message.answer }")
-            v-col(cols="12")
-              v-icon.mr-2(v-if="message.question") mdi-account
-              v-icon.ml-2(v-else) mdi-robot
-              p.ml-2.mr-2 {{ message.text }}
+          v-row(v-for="(message, index) in questions" :key="index")
+            v-col(cols="12").user-message
+              v-icon.mr-2 mdi-account
+              p.ml-2.mr-2 {{ message.question }}
+            v-col(cols="12").bot-message
+              v-icon.ml-2 mdi-robot
+              p.mr-2.ml-2 {{ message.answer !== '' ? message.answer : '...' }}
       v-row.chat-input
         v-col(cols="12")
           v-text-field.ml-3.mr-3(label="O que você gostaria de saber?" v-model="newQuestion" variant="outlined" clearable append-inner-icon="mdi-arrow-up-box" single-line @click:append-inner="sendQuestion")
     template(v-else)
       v-row
         v-col(cols=12)
-          p {{ summary }}
+          p {{ summary.text }}
 </template>
 
 <script>
@@ -49,7 +51,7 @@ export default {
       required: true,
     },
     summary: {
-      type: String,
+      type: Object,
       required: true,
     },
   },

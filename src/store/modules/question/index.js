@@ -16,7 +16,7 @@ export const mutations = {
 export const actions = {
   async getQuestionsByTransId({ commit }, transId) {
     try {
-      const response = await axios.get(`${process.env.VUE_APP_SERVER_URL}/questions/${transId}`)
+      const response = await axios.get(`${process.env.VUE_APP_SERVER_URL}/question/by-trans-id/${transId}`)
       commit('updateField', { path: 'questions', value: response.data })
       return response
     } catch (error) {
