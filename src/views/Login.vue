@@ -41,7 +41,6 @@ import TextField from '../components/text/TextFieldComponent.vue';
 import Snackbar from '@/components/snackbar/snackbarComponent.vue';
 import { mapState } from "vuex";
 
-
 export default {
   name: "LoginView",
   data() {
@@ -51,8 +50,14 @@ export default {
       forgotPassword: false,
     }
   },
+  async mounted() {
+    await this.$store.dispatch('user/logoutUser');
+    console.log(localStorage.getItem('user'))
+    console.log(this.user)
+
+  },
   computed:{
-    ...mapState('user', ['loading']),
+    ...mapState('user', ['loading', 'user']),
   },
   components: {
     TextField,
@@ -84,9 +89,9 @@ export default {
             break;
           default:
             this.$root.$refs.snackbar.show('Usuário logado com sucesso!');
-            this.$router.push('/dashboard');
             break;
         }
+        this.$router.push('/dashboard');
       })
     },
     

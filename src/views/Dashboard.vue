@@ -91,7 +91,7 @@ export default {
         await this.$store.commit('user/setCredits', this.user.credits)
         await this.$store.dispatch('transcription/getUserTranscriptions', this.user.id)
       } else {
-        this.logout();
+        this.$store.dispatch('user/logoutUser')
       }
     });
   },

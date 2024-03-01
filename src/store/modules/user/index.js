@@ -64,6 +64,7 @@ export const actions = {
       const response = await signOut(auth)
       localStorage.removeItem('user')
       commit('updateField', { path: 'user', value: null })
+      commit('updateField', { path: 'credits', value: 0 })
       return response;
     } catch (error) {
       return error.code;
