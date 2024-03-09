@@ -61,14 +61,15 @@ export default {
         file: this.selectedFile, 
         userId: this.user.id, 
         name: this.name 
-      }).then((response) => {
+      }).then(async (response) => {
         if (response.status === 201 || response.status === 200) {
+          await this.$store.dispatch('transcription/getUserTranscriptions', this.user.id)
+          await this.$store.dispatch('user/getUserById', this.user.id)
           this.$root.$refs.snackbar.show('Arquivo criado com sucesso!', false);
         }
         else {
           this.$root.$refs.snackbar.show('Erro ao criar arquivo!', true);
         }
-        this.$router.push('/dashboard');
       })
       this.loading = false;
       this.name = ''

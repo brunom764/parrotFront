@@ -52,8 +52,6 @@ export default {
   },
   async mounted() {
     await this.$store.dispatch('user/logoutUser');
-    console.log(localStorage.getItem('user'))
-    console.log(this.user)
 
   },
   computed:{
@@ -73,7 +71,7 @@ export default {
         email: this.email,
         password: this.password,
       })
-      .then((response) => {
+      .then(async (response) => {
         switch (response) {
           case 'auth/user-not-found':
             this.$root.$refs.snackbar.show('Usuário não encontrado!', true);
@@ -91,7 +89,7 @@ export default {
             this.$root.$refs.snackbar.show('Usuário logado com sucesso!');
             break;
         }
-        this.$router.push('/dashboard');
+        await this.$router.push('/dashboard');
       })
     },
     

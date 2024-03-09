@@ -11,10 +11,13 @@ export const getters = {
 
 export const mutations = {
   updateField,
+  setSummary(state, summary) {
+    state.summary = summary;
+  },
 };
 
 export const actions = {
-  async createSummaryByTransId({ commit }, {transId}) {
+  async createSummaryByTransId({ commit }, transId) {
     try {
       const response = await axios.post(`${process.env.VUE_APP_SERVER_URL}/summary/create`, {transId})
       commit('updateField', { path: 'summary', value: response.data })

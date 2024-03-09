@@ -84,6 +84,13 @@ export const actions = {
     }
   },
 
+  async getUserById({ commit }, id) {
+    const user = await axios.get(`${process.env.VUE_APP_SERVER_URL}/identity/user-by-id/${id}`)
+    localStorage.setItem('user', JSON.stringify(user.data))
+    commit('updateField', { path: 'credits', value: user.data.credits })
+    commit('updateField', { path: 'user', value: user.data })
+  },
+
   async getUserByEmail({ commit }, {email}) {
     const user = await axios.get(`${process.env.VUE_APP_SERVER_URL}/identity/user-by-email/${email}`)
     localStorage.setItem('user', JSON.stringify(user.data))
