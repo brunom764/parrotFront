@@ -28,6 +28,7 @@ v-card.card.d-flex.flex-column.justify-center(height="70vh")
                 p.mr-2.ml-2 {{ message.answer !== '' ? message.answer : '...' }}
         v-row.chat-input
           v-col(cols="12")
+            v-progress-linear.mb-1(indeterminate color="auxiliary" v-if="sendingQuestionLoading")
             v-text-field.ml-3.mr-3(label="O que você gostaria de saber?" v-model="newQuestion" variant="outlined" clearable append-inner-icon="mdi-arrow-up-box" single-line @click:append-inner="sendQuestion")
       template(v-else)
         v-row
@@ -48,7 +49,8 @@ export default {
     return {
         newQuestion: '',
         parrotArea: 0,
-        loading: false,  
+        loading: false,
+        sendingQuestionLoading: false,  
     }
   },
 
@@ -73,15 +75,17 @@ export default {
   methods: {
     async sendQuestion() {
       if (this.newQuestion.trim() !== "") {
+        this.sendingQuestionLoading = true;
         const payLoad = {
           question: this.newQuestion,
           transId: this.transcription.id,
         };
+        this.newQuestion = "";
         await this.$store.dispatch('question/createQuestion', payLoad)
         .then((response) => {
           this.$store.commit('question/addQuestion', response.data);
         })
-        this.newQuestion = "";
+        this.sendingQuestionLoading = false;
       }
     },
 
