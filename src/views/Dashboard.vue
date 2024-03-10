@@ -1,5 +1,5 @@
 <template lang="pug">
-UploadModal(v-model="uploadModalOpen" @close="this.uploadModalOpen = false")
+UploadModal(v-model="uploadModalOpen" @close="closeModal()")
 div.dashboard
   v-row
     v-col(cols=3)
@@ -38,6 +38,8 @@ div.dashboard
           v-row
             v-col.left-text(cols=5) 
               span.text {{ transcription.name }}
+              v-btn.ml-3.mb-2(@click="deleteTranscriptionById(transcription.id, index)" variant="text")
+                v-icon mdi-delete
               v-row(style="max-width: 250px;").pl-3 
                 v-col.pl-0
                   p {{ formatDuration(transcription.duration) }}
@@ -47,7 +49,7 @@ div.dashboard
                   p 2033 palavras
           v-row
             v-col(cols=6)
-              AiChatSummary(:questions="questions" :summary="summary")
+              AiChatSummary(:transcription="transcription")
             v-col(cols=6)
               TrascriptionText(:transcription="transcription.text")
             
@@ -73,8 +75,6 @@ export default {
   computed: {
     ...mapFields('user', ['user', 'credits']),
     ...mapFields('transcription', ['transcriptions', 'transcription', 'loadingNewTranscription']),
-    ...mapFields('question', ['questions']),
-    ...mapFields('summary', ['summary']),
   },
   data() {
     return {
@@ -83,10 +83,10 @@ export default {
       loadingNewResume: false,
     }
   },
-  async mounted() {
+  async beforeCreate() {
     let auth = getAuth();
     onAuthStateChanged(auth, async (user) => {
-      if ((user && JSON.parse(localStorage.getItem('user'))) && (user.email === JSON.parse(localStorage.getItem('user')).email)) {
+      if ((user && localStorage.getItem('user')) && (user.email === JSON.parse(localStorage.getItem('user')).email)) {
         await this.$store.commit('user/setUser', JSON.parse(localStorage.getItem('user')));
         await this.$store.commit('user/setCredits', this.user.credits)
         await this.$store.dispatch('transcription/getUserTranscriptions', this.user.id)
@@ -111,17 +111,7 @@ export default {
 
     async getTranscriptionDetails(id) {
       this.loadingNewResume = true;
-      const promisses = [];
-      promisses.push(
-        await this.$store.dispatch('transcription/getTranscriptionById', id)
-      );
-      promisses.push(
-        await this.$store.dispatch('question/getQuestionsByTransId', id)
-      );
-      promisses.push(
-        await this.$store.dispatch('summary/getSummaryByTransId', id)
-      );
-      await Promise.all(promisses)
+      await this.$store.dispatch('transcription/getTranscriptionById', id)
       .then(() => {
         this.resumeIsInAnalysis = true;
       })
@@ -130,12 +120,30 @@ export default {
 
     async logout() {
       await this.$store.dispatch('user/logoutUser')
-      .then(() => {
-        this.$root.$refs.snackbar.show('Usuário deslogado com sucesso!', true);
-        this.$router.push('/login');
+      this.$root.$refs.snackbar.show('Usuário deslogado com sucesso!', true);
+      await this.$router.push('/login');
+    },
+    
+    async deleteTranscriptionById(transcriptionId) {
+      await this.$store.dispatch('transcription/deleteTranscriptionById', transcriptionId)
+      .then((response) => {
+        if (response.status === 200 || response.status === 204){
+          this.$root.$refs.snackbar.show('Resumo deletado com sucesso!', false);
+          this.$store.dispatch('transcription/getUserTranscriptions', this.user.id)
+          this.resumeIsInAnalysis = false;
+        }
+        else {
+          this.$root.$refs.snackbar.show('Erro ao deletar resumo!', true);
+        }
       })
-    }
-  }
+    },
+
+    async closeModal() {
+      this.resumeIsInAnalysis = false;
+      this.uploadModalOpen = false;
+    },
+  },
+  
 }
 </script>
 

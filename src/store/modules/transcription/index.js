@@ -38,6 +38,15 @@ export const actions = {
     }
   },
 
+  async deleteTranscriptionById(state, transcriptionId) {
+    try {
+      const response = await axios.delete(`${process.env.VUE_APP_SERVER_URL}/transcription/${transcriptionId}`);
+      return response; 
+    } catch (error) {
+      return error;
+    }
+  },
+
   async createTranscription({commit}, {file, userId, name}) {
     openLoadingTranscriptionAlert();
     const formData = new FormData();
@@ -50,8 +59,6 @@ export const actions = {
         )
         if(response.status === 201) {
           commit('updateField', { path: 'transcription', value: response.data })
-          let userJson = JSON.parse(localStorage.getItem('user'));
-          this.dispatch('user/getUserByEmail', { email: userJson.email});
         }
         CloseLoadingTranscriptionAlert();
         return response;

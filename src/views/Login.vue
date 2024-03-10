@@ -41,7 +41,6 @@ import TextField from '../components/text/TextFieldComponent.vue';
 import Snackbar from '@/components/snackbar/snackbarComponent.vue';
 import { mapState } from "vuex";
 
-
 export default {
   name: "LoginView",
   data() {
@@ -51,8 +50,12 @@ export default {
       forgotPassword: false,
     }
   },
+  async mounted() {
+    await this.$store.dispatch('user/logoutUser');
+
+  },
   computed:{
-    ...mapState('user', ['loading']),
+    ...mapState('user', ['loading', 'user']),
   },
   components: {
     TextField,
@@ -68,7 +71,7 @@ export default {
         email: this.email,
         password: this.password,
       })
-      .then((response) => {
+      .then(async (response) => {
         switch (response) {
           case 'auth/user-not-found':
             this.$root.$refs.snackbar.show('Usuário não encontrado!', true);
@@ -84,9 +87,9 @@ export default {
             break;
           default:
             this.$root.$refs.snackbar.show('Usuário logado com sucesso!');
-            this.$router.push('/dashboard');
             break;
         }
+        await this.$router.push('/dashboard');
       })
     },
     

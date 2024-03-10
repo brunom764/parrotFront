@@ -64,6 +64,7 @@ export const actions = {
       const response = await signOut(auth)
       localStorage.removeItem('user')
       commit('updateField', { path: 'user', value: null })
+      commit('updateField', { path: 'credits', value: 0 })
       return response;
     } catch (error) {
       return error.code;
@@ -81,6 +82,13 @@ export const actions = {
       commit('updateField', { path: 'loading', value: false })
       return error.code;
     }
+  },
+
+  async getUserById({ commit }, id) {
+    const user = await axios.get(`${process.env.VUE_APP_SERVER_URL}/identity/user-by-id/${id}`)
+    localStorage.setItem('user', JSON.stringify(user.data))
+    commit('updateField', { path: 'credits', value: user.data.credits })
+    commit('updateField', { path: 'user', value: user.data })
   },
 
   async getUserByEmail({ commit }, {email}) {

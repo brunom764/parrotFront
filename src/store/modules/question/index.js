@@ -11,6 +11,12 @@ export const getters = {
 
 export const mutations = {
   updateField,
+  setQuestions(state, questions) {
+    state.questions = questions;
+  },
+  addQuestion(state, question) {
+    state.questions.push(question);
+  }
 };
 
 export const actions = {
@@ -24,10 +30,9 @@ export const actions = {
     }
   },
 
-  async createQuestion({question, transId}) {
+  async createQuestion(state, {question, transId}) {
     try {
-      const response = await axios.post(`${process.env.VUE_APP_SERVER_URL}/create-question`, {question, transId})
-      state.questions.push(response.data)
+      const response = await axios.post(`${process.env.VUE_APP_SERVER_URL}/question/create`, {transId, question})
       return response
     } catch (error) {
       return error
