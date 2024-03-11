@@ -33,7 +33,7 @@ v-card.card.d-flex.flex-column.justify-center(height="70vh")
       template(v-else)
         v-row
           v-col(cols=12)
-            p.ml-1 {{ summary.summary }}
+            p.ml-1.pr-4.pl-2.text-justify {{ summary.summary }}
 </template>
 
 <script>
@@ -148,5 +148,9 @@ p {
 }
 .bot-message {
   text-align: left;
+}
+
+.text-justify {
+  text-align: justify;
 }
 </style>
