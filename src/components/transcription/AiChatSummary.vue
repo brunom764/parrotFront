@@ -2,12 +2,12 @@
 Snackbar
 v-card.card.d-flex.flex-column.justify-center(height="70vh")
     v-row.header-row
-      v-col(cols="6" class="pb-0")
-        v-btn.tooltip.ma-3(height="50px" width="180px" :ripple="false" @click="parrotArea = 0") 
-          span Parrot AI Chat
-      v-col(cols="6" class="pb-0")
-        v-btn.tooltip.ma-3(height="50px" width="180px" :ripple="false" @click="getSummaryTranscription()") 
-          span Parrot AI Summary
+      v-col.pb-0.pr-0(cols="6")
+        v-btn.tooltip.ma-3(height="50px" min-width="140px" :ripple="false" @click="parrotArea = 0") 
+          span AI Chat
+      v-col.pl-0(cols="6" class="pb-0")
+        v-btn.tooltip.ma-3.ml-0(height="50px" min-width="140px" :ripple="false" @click="getSummaryTranscription()") 
+          span Summary
       v-divider.mt-2
     v-row(v-if="loading")
       v-col(cols="12")
