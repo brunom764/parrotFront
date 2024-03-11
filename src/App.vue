@@ -13,7 +13,7 @@ import Snackbar from './components/snackbar/snackbarComponent.vue';
 export default {
   name: 'App',
   components: {
-  Footer,
+    Footer,
     Snackbar,
   },
 computed: {
@@ -35,12 +35,8 @@ computed: {
   min-height: 100vh;
   overflow: hidden;
 }
-main {
-  flex: 1;
-}
 
-footer {
-  padding: 1rem;
+Footer {
   font-weight: bolder;
 }
 

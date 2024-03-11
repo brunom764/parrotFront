@@ -1,39 +1,40 @@
 <template lang="pug">
 Snackbar
-v-container.login-container.mt-10.pt-10
-  img.logo(src="@/assets/logo.png" alt="logo")
-  v-col
-    v-row.pb-3
-      v-btn(width="400px" rounded @click="loginWithGoogle()")
-        v-icon.pr-2
-          img.google-logo(src="@/assets/icons/google.svg" alt="Google logo")
-        span Entrar com Google
-    v-row
-      v-divider.pb-3(height="4")
-    v-row(v-if="loading" justify="center")
-      v-progress-circular.loading(indeterminate color="primary")
-    template(v-else-if="!forgotPassword")
+div.login-screen.d-flex.align-center.justify-center
+  v-container.login-container
+    img.logo(src="@/assets/logo.png" alt="logo")
+    v-col
+      v-row.pb-3
+        v-btn(width="400px" rounded @click="loginWithGoogle()")
+          v-icon.pr-2
+            img.google-logo(src="@/assets/icons/google.svg" alt="Google logo")
+          span Entrar com Google
       v-row
-        text-field(v-model="email" name="email" type="email" label="E-mail")
-      v-row
-        text-field(v-model="password" name="password" type="password" label="Senha")
-      v-row(justify="center")
-        p(@click="forgotPassword = true") Esqueci a senha
-      v-row.pt-3(justify="center")
-        v-btn(width="400px" rounded color="auxiliary" @click="login()")
-          span Entrar
-      v-row.pt-3(justify="center")
-        a(href="/register") Não tem uma conta? Cadastre-se
-    template(v-else)
-      v-row
-        text-field(v-model="email" type="email" label="E-mail")
-      v-row(justify="center")
-        p(@click="forgotPassword = false") Voltar para tela de login
-      v-row.pt-3(justify="center")
-        v-btn(width="400px" rounded color="auxiliary" @click="resetPassword()")
-          span Redefinir senha
-      v-row.pt-3(justify="center")
-        a(href="/register") Não tem uma conta? Cadastre-se
+        v-divider.pb-3(height="4")
+      v-row(v-if="loading" justify="center")
+        v-progress-circular.loading(indeterminate color="primary")
+      template(v-else-if="!forgotPassword")
+        v-row
+          text-field(v-model="email" name="email" type="email" label="E-mail")
+        v-row
+          text-field(v-model="password" name="password" type="password" label="Senha")
+        v-row(justify="center")
+          p(@click="forgotPassword = true") Esqueci a senha
+        v-row.pt-3(justify="center")
+          v-btn(width="400px" rounded color="auxiliary" @click="login()")
+            span Entrar
+        v-row.pt-3(justify="center")
+          a(href="/register") Não tem uma conta? Cadastre-se
+      template(v-else)
+        v-row
+          text-field(v-model="email" type="email" label="E-mail")
+        v-row(justify="center")
+          p(@click="forgotPassword = false") Voltar para tela de login
+        v-row.pt-3(justify="center")
+          v-btn(width="400px" rounded color="auxiliary" @click="resetPassword()")
+            span Redefinir senha
+        v-row.pt-3(justify="center")
+          a(href="/register") Não tem uma conta? Cadastre-se
 </template>
 
 <script>
@@ -119,7 +120,7 @@ export default {
 
 <style scoped>
 .login-container {
-  min-height: 500px;
+  max-height: 500px;
   max-width: 400px;
   border-radius: 10px;
   background-color: white;
@@ -146,4 +147,7 @@ p {
   text-decoration: underline;
 }
 
+.login-screen {
+  height: 95vh;
+}
 </style>
