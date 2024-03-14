@@ -1,23 +1,24 @@
 <template lang="pug">
 Snackbar
-v-container.login-container.pt-10.mt-10
-  img.logo(src="@/assets/logo.png" alt="logo")
-  v-row(v-if="loading" justify="center")
-    v-progress-circular.loading(indeterminate color="primary")
-  v-col(v-else)
-    v-row
-      v-divider.pb-3(height="4")
-    v-row
-      text-field(v-model="email" type="email" label="E-mail")
-    v-row
-      text-field(v-model="password" type="password" label="Senha")
-    v-row
-      text-field(v-model="confirmPassword" type="password" label="Confirme a senha")
-    v-row.pt-3(justify="center")
-      v-btn.registrar-button(width="400px" rounded color="auxiliary" @click="register()") 
-        span Cadastrar
-    v-row.pt-3(justify="center")
-        a(href="/login") Já tem uma conta? Faça login
+div.login-screen.d-flex.align-center.justify-center
+  v-container.login-container.pt-10.mt-10
+    img.logo(src="@/assets/logo.png" alt="logo")
+    v-row(v-if="loading" justify="center")
+      v-progress-circular.loading(indeterminate color="primary")
+    v-col(v-else)
+      v-row
+        v-divider.pb-3(height="4")
+      v-row
+        text-field(v-model="email" type="email" label="E-mail")
+      v-row
+        text-field(v-model="password" type="password" label="Senha")
+      v-row
+        text-field(v-model="confirmPassword" type="password" label="Confirme a senha")
+      v-row.pt-3(justify="center")
+        v-btn.registrar-button(width="400px" rounded color="auxiliary" @click="register()") 
+          span Cadastrar
+      v-row.pt-3(justify="center")
+          a(href="/login") Já tem uma conta? Faça login
 </template>
 
 <script>
@@ -86,7 +87,7 @@ export default {
 
 <style scoped>
 .login-container {
-  min-height: 500px;
+  max-height: 600px;
   max-width: 400px;
   border-radius: 10px;
   background-color: white;
@@ -105,5 +106,9 @@ a {
 }
 .loading {
   margin-top: 5rem;
+}
+
+.login-screen {
+  height: 95vh;
 }
 </style>

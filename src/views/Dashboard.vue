@@ -36,7 +36,7 @@ div.dashboard
               span.text Crie um novo resumo e começe a analisar seus áudios!
         v-container(v-if="resumeIsInAnalysis" fluid)
           v-row
-            v-col.left-text(cols=5) 
+            v-col.left-text(cols=12) 
               span.text {{ transcription.name }}
               v-btn.ml-3.mb-2(@click="deleteTranscriptionById(transcription.id, index)" variant="text")
                 v-icon mdi-delete

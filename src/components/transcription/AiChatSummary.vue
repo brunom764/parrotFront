@@ -2,12 +2,12 @@
 Snackbar
 v-card.card.d-flex.flex-column.justify-center(height="70vh")
     v-row.header-row
-      v-col(cols="6" class="pb-0")
-        v-btn.tooltip.ma-3(height="50px" width="180px" :ripple="false" @click="parrotArea = 0") 
-          span Parrot AI Chat
-      v-col(cols="6" class="pb-0")
-        v-btn.tooltip.ma-3(height="50px" width="180px" :ripple="false" @click="getSummaryTranscription()") 
-          span Parrot AI Summary
+      v-col.pb-0.pr-0(cols="6")
+        v-btn.tooltip.ma-3(height="50px" min-width="140px" :ripple="false" @click="parrotArea = 0") 
+          span AI Chat
+      v-col.pl-0(cols="6" class="pb-0")
+        v-btn.tooltip.ma-3.ml-0(height="50px" min-width="140px" :ripple="false" @click="getSummaryTranscription()") 
+          span Summary
       v-divider.mt-2
     v-row(v-if="loading")
       v-col(cols="12")
@@ -31,9 +31,9 @@ v-card.card.d-flex.flex-column.justify-center(height="70vh")
             v-progress-linear.mb-1(indeterminate color="auxiliary" v-if="sendingQuestionLoading")
             v-text-field.ml-3.mr-3(label="O que você gostaria de saber?" v-model="newQuestion" variant="outlined" clearable append-inner-icon="mdi-arrow-up-box" single-line @click:append-inner="sendQuestion")
       template(v-else)
-        v-row
+        v-row.overflow-auto
           v-col(cols=12)
-            p.ml-1 {{ summary.summary }}
+            p.ml-1.pr-4.pl-2.text-justify {{ summary.summary }}
 </template>
 
 <script>
@@ -64,6 +64,7 @@ export default {
   computed: {
     ...mapFields('question', ['questions']),
     ...mapFields('summary', ['summary']),
+    ...mapFields('user', ['user', 'credits'])
   },
 
   async beforeCreate() {
@@ -83,7 +84,14 @@ export default {
         this.newQuestion = "";
         await this.$store.dispatch('question/createQuestion', payLoad)
         .then((response) => {
-          this.$store.commit('question/addQuestion', response.data);
+          if(response.status === 201) {
+            let newUser = JSON.parse(localStorage.getItem('user'));
+            newUser.credits -= 1;
+            localStorage.setItem('user', JSON.stringify(newUser));
+            this.$store.commit('user/setUser', newUser);
+            this.$store.commit('user/setCredits', this.credits - 1);
+            this.$store.commit('question/addQuestion', response.data);
+          }
         })
         this.sendingQuestionLoading = false;
       }
@@ -104,6 +112,15 @@ export default {
 
     async createSummaryTranscription() {
       await this.$store.dispatch('summary/createSummaryByTransId', this.transcription.id)
+      .then((response) => {
+        if(response.status === 201) {
+          let newUser = JSON.parse(localStorage.getItem('user'));
+            newUser.credits -= 1;
+            localStorage.setItem('user', JSON.stringify(newUser));
+            this.$store.commit('user/setUser', newUser);
+            this.$store.commit('user/setCredits', this.credits - 1);
+        }
+      })
     },
   },
 
@@ -148,5 +165,13 @@ p {
 }
 .bot-message {
   text-align: left;
+}
+
+.text-justify {
+  text-align: justify;
+}
+
+.overflow-auto {
+  overflow: auto;
 }
 </style>
