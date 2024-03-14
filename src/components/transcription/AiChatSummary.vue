@@ -31,7 +31,7 @@ v-card.card.d-flex.flex-column.justify-center(height="70vh")
             v-progress-linear.mb-1(indeterminate color="auxiliary" v-if="sendingQuestionLoading")
             v-text-field.ml-3.mr-3(label="O que você gostaria de saber?" v-model="newQuestion" variant="outlined" clearable append-inner-icon="mdi-arrow-up-box" single-line @click:append-inner="sendQuestion")
       template(v-else)
-        v-row
+        v-row.overflow-auto
           v-col(cols=12)
             p.ml-1.pr-4.pl-2.text-justify {{ summary.summary }}
 </template>
@@ -64,6 +64,7 @@ export default {
   computed: {
     ...mapFields('question', ['questions']),
     ...mapFields('summary', ['summary']),
+    ...mapFields('user', ['user', 'credits'])
   },
 
   async beforeCreate() {
@@ -83,7 +84,14 @@ export default {
         this.newQuestion = "";
         await this.$store.dispatch('question/createQuestion', payLoad)
         .then((response) => {
-          this.$store.commit('question/addQuestion', response.data);
+          if(response.status === 201) {
+            let newUser = JSON.parse(localStorage.getItem('user'));
+            newUser.credits -= 1;
+            localStorage.setItem('user', JSON.stringify(newUser));
+            this.$store.commit('user/setUser', newUser);
+            this.$store.commit('user/setCredits', this.credits - 1);
+            this.$store.commit('question/addQuestion', response.data);
+          }
         })
         this.sendingQuestionLoading = false;
       }
@@ -104,6 +112,15 @@ export default {
 
     async createSummaryTranscription() {
       await this.$store.dispatch('summary/createSummaryByTransId', this.transcription.id)
+      .then((response) => {
+        if(response.status === 201) {
+          let newUser = JSON.parse(localStorage.getItem('user'));
+            newUser.credits -= 1;
+            localStorage.setItem('user', JSON.stringify(newUser));
+            this.$store.commit('user/setUser', newUser);
+            this.$store.commit('user/setCredits', this.credits - 1);
+        }
+      })
     },
   },
 
@@ -152,5 +169,9 @@ p {
 
 .text-justify {
   text-align: justify;
+}
+
+.overflow-auto {
+  overflow: auto;
 }
 </style>

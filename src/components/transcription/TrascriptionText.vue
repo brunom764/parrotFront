@@ -9,8 +9,8 @@ v-card.card.d-flex.flex-column.justify-center(height="70vh")
     v-divider 
   v-row.text-area
     v-col.left-text(v-for="(line, index) in transcription" cols=12)
-      span.ml-1(style="font-weight: bold") {{ line.speaker }}
-      p.ml-1 {{ line.text }}
+      span.ml-2(style="font-weight: bold") {{ line.speaker }}
+      p.ml-2 {{ line.text }}
 </template>
 
 <script>
