@@ -4,7 +4,7 @@ v-dialog.modal(v-model='dialog' width="500")
     v-card-title
       v-row
         v-col(cols='6')
-          span.text Novo Resumo
+          span.text Nova transcrição
         v-col(cols='6', align='right')
           v-btn(variant='text' @click='closeModal')
             v-icon mdi-close
@@ -13,8 +13,8 @@ v-dialog.modal(v-model='dialog' width="500")
       v-container(v-else)
         v-row
           v-col(cols='12')
-            label.text Nome do Resumo:
-            v-text-field(v-model='name' variant="outlined" clearable single-line label="Insira um nome para o resumo")
+            label.text Título:
+            v-text-field(v-model='name' variant="outlined" clearable single-line label="Insira um  titulo para a transcrição" required)
           v-col(cols='12')
             label.text Arquivo de áudio:
             input(type="file" @change="handleFileChange" accept="audio/*")
