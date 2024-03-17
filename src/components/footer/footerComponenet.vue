@@ -1,6 +1,8 @@
 <template lang="pug">
 footer
-  span 2023 - Parrot - All rights reserved
+  span 2024 - Parrot - All rights reserved
+  br
+  span.contact Contact us: bmma@cin.ufpe.br | glrbc@cin.ufpe.br | ajof@cin.ufpe.br | fvg@cin.ufpe.br | gaac@cin.ufpe.br
 </template>
 
 <script>
@@ -10,5 +12,8 @@ export default {
 </script>
 
 <style>
-
+.contact {
+  font-size: 0.75em;
+  font-weight: 500 ;
+}
 </style>

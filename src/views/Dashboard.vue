@@ -7,7 +7,7 @@ div.dashboard
         v-row
           v-col(cols=12)
             v-btn.mt-4(color="auxiliary" rounded @click="uploadModalOpen = true")
-              span Crie um novo Resumo
+              span.pr-1 nova transcrição
               v-icon(right) mdi-plus
         v-row.resume-list
           v-col(cols=12)
@@ -19,7 +19,7 @@ div.dashboard
         v-row.justify-center.d-flex
           v-col.tooltip.pa-0(cols=12)
             v-btn(variant="text")
-              img.icon(src="@/assets/icons/coin.svg" alt="credits" )
+              img.icon(src="@/assets/icons/coin.svg" alt="credits")
               p {{ credits }}
             v-btn(@click="logout" variant="text")
               img.icon(src="@/assets/icons/logout.svg" alt="logout" )
@@ -162,11 +162,9 @@ export default {
 }
 .dashboard {
   min-height: 100vh;
-  min-width: 100vh;
   width: 100%;
   height: 100%;
   overflow: hidden;
-
 }
 .menu {
   box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
@@ -181,7 +179,7 @@ export default {
 }
 .text {
   top: 50 !important;
-  font-size: 30px;
+  font-size: 2rem;
   font-weight: bold;
   white-space: nowrap;
 }
@@ -200,5 +198,14 @@ export default {
 p {
   font-size: small;
   font-family: inherit;
+}
+
+@media (max-width: 900px) {
+  .logo {
+    display: none;
+  }
+  .text {
+    font-size: 1.5rem;
+  }
 }
 </style>

@@ -1,4 +1,4 @@
-<template lang="pug">
+<template lang="pug" class="template">
 div#app
   Snackbar(ref="snackbar")
   main
@@ -25,6 +25,10 @@ computed: {
 </script>
 
 <style>
+.template {
+  overflow: hidden;
+}
+
 #app {
   font-family: 'Poppins', sans-serif;
   text-align: center;
@@ -32,12 +36,17 @@ computed: {
   background-color: #a3d95b;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  height: 100vh;
   overflow: hidden;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 Footer {
-  font-weight: bolder;
+  font-weight: bold;
+  font-size: 0.75em;
 }
 
 </style>
