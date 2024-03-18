@@ -2,6 +2,8 @@
 
 Frontend do saas Parrot. Um software que une inteligência artifical e áudios, fornecendo serviços como transcrição deles, resumos e perguntas e respostas.
 
+Disponível em: [https://parrot-ruddy.vercel.app/](https://parrot-ruddy.vercel.app/)
+
 ![image](https://github.com/brunom764/parrotFront/assets/100807129/e95832eb-07ab-4891-aea8-91886bd39cf2)
 
 
