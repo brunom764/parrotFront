@@ -73,3 +73,12 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
     vuetify: 3.4.3,
     vuex: 4.0.2,
     vuex-map-fields: 1.4.1
+
+# Links
+[Miro](https://miro.com/app/board/uXjVNLM48fE=/)
+
+[Apresentação final do projeto](https://www.canva.com/design/DAF_Kev4LN4/ygINuKpue3pqizai72duog/editutm_content=DAF_Kev4LN4&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+
+[Notion](https://www.notion.so/felipegusmao/5aa41f10a15b467da2c11bbb07bfc46f?v=4f873b67c355499e8fa9df968ba0d2ae)
+
+[Protótipo](https://www.figma.com/file/LsB7paCMxAkcbBzBSBV5Oo/Projeto-Eng-Software?type=design&mode=design&t=n1S7yhugtr30AROs-1)
