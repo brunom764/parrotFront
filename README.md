@@ -1,4 +1,4 @@
-# Parrot
+# Parrot - FrontEnd
 
 Frontend do saas Parrot. Um software que une inteligência artifical e áudios, fornecendo serviços como transcrição deles, resumos e perguntas e respostas.
 
@@ -24,7 +24,7 @@ O resumo e as respostas das perguntas feitas pelos usuários são gerados atrav�
 
 ## Contributing
 
-Contribuições para o ParrotBack são muito bem-vindas! Se você gostaria de contribuir, siga estas instruções:
+Contribuições para o Parrot são muito bem-vindas! Se você gostaria de contribuir, siga estas instruções:
 
 1. Faça um fork do repositório;
 2. Crie sua branch de funcionalidade (`git checkout -b feature/SuaFeature`);
