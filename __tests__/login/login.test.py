@@ -19,15 +19,15 @@ password_input = driver.find_element("name","password")
 
 # Preencher campos de login
 email_input.send_keys("teste@gmail.com")
-password_input.send_keys("1234567")
+password_input.send_keys("123456")
 
 time.sleep(2)
 
 login_button = driver.find_element("xpath",'//span[text()="Entrar"]')  
 login_button.click()
 
-# Aguarde algum tempo (por exemplo, 2 segundos) para permitir que a ação seja concluída
-time.sleep(2)
+# Aguarde algum tempo (por exemplo, 5 segundos) para permitir que a ação seja concluída
+time.sleep(5)
 
 
 expected_url = 'http://localhost:8080/dashboard' # Verifica se o login foi concluído com sucesso, ou seja, se foi redirecionado para a página de dashboard.

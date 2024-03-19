@@ -87,7 +87,7 @@ export default {
 
 <style scoped>
 .login-container {
-  max-height: 600px;
+  min-height: 500px;
   max-width: 400px;
   border-radius: 10px;
   background-color: white;
