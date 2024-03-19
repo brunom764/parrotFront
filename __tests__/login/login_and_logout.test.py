@@ -30,7 +30,7 @@ else:
 
 time.sleep(2)
 
-register_button = driver.find_element("xpath", "//span[text()='logout']")
+register_button = driver.find_element("xpath", "//img[@alt='logout']")
 register_button.click()
 
 expected_url = "http://localhost:8080/login"

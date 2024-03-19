@@ -1,8 +1,11 @@
-# Parrot
+# Parrot - FrontEnd
 
 Frontend do saas Parrot. Um software que une inteligência artifical e áudios, fornecendo serviços como transcrição deles, resumos e perguntas e respostas.
 
-![image](https://github.com/brunom764/parrotFront/assets/100807129/e95832eb-07ab-4891-aea8-91886bd39cf2)
+Disponível em: [https://parrot-ruddy.vercel.app/](https://parrot-ruddy.vercel.app/)
+
+![image](https://github.com/brunom764/parrotFront/assets/111246423/70fb2109-c174-48fa-beca-93932b241b1a)
+
 
 
 # Features
@@ -22,7 +25,7 @@ O resumo e as respostas das perguntas feitas pelos usuários são gerados atrav�
 
 ## Contributing
 
-Contribuições para o ParrotBack são muito bem-vindas! Se você gostaria de contribuir, siga estas instruções:
+Contribuições para o Parrot são muito bem-vindas! Se você gostaria de contribuir, siga estas instruções:
 
 1. Faça um fork do repositório;
 2. Crie sua branch de funcionalidade (`git checkout -b feature/SuaFeature`);
@@ -70,3 +73,12 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
     vuetify: 3.4.3,
     vuex: 4.0.2,
     vuex-map-fields: 1.4.1
+
+# Links
+[Miro](https://miro.com/app/board/uXjVNLM48fE=/)
+
+[Apresentação final do projeto](https://www.canva.com/design/DAF_Kev4LN4/ygINuKpue3pqizai72duog/editutm_content=DAF_Kev4LN4&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+
+[Notion](https://www.notion.so/felipegusmao/5aa41f10a15b467da2c11bbb07bfc46f?v=4f873b67c355499e8fa9df968ba0d2ae)
+
+[Protótipo](https://www.figma.com/file/LsB7paCMxAkcbBzBSBV5Oo/Projeto-Eng-Software?type=design&mode=design&t=n1S7yhugtr30AROs-1)
