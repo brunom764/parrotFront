@@ -82,3 +82,5 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 [Notion](https://www.notion.so/felipegusmao/5aa41f10a15b467da2c11bbb07bfc46f?v=4f873b67c355499e8fa9df968ba0d2ae)
 
 [Protótipo](https://www.figma.com/file/LsB7paCMxAkcbBzBSBV5Oo/Projeto-Eng-Software?type=design&mode=design&t=n1S7yhugtr30AROs-1)
+
+[ScreenCast](https://youtu.be/cnvx8QowDOo)
